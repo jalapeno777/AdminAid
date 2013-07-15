@@ -18,6 +18,8 @@ public class AdminAid extends JavaPlugin {
 	
 	public Plugin onTime;
 	public Map<String, String> lastSender;
+	
+	//TODO: have to setup chat spy command
 		
 	@Override
 	public void onEnable() {

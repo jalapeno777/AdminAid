@@ -127,7 +127,6 @@ public class PlayerListener implements Listener {
 		userFile.set("ReadMail", mailListRead);
 		FileUtilities.saveYamlFile(userFile, file);
 		
-	
 		while(plugin.lastSender.values().remove(player.getName())) {}
 	}
 	
