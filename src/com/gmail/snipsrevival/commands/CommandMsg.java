@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.CommonUtilities;
-import com.gmail.snipsrevival.ConfigValues;
 
 public class CommandMsg implements CommandExecutor {
 	
@@ -51,7 +50,6 @@ public class CommandMsg implements CommandExecutor {
 		}
 		
 		StringBuilder strBuilder = new StringBuilder();			
-		String prefix = new ConfigValues(plugin).getPrefix(sender);
 		
 		for(int i = 1; i < args.length; i++) {
 			strBuilder.append(args[i] + " ");
@@ -59,10 +57,12 @@ public class CommandMsg implements CommandExecutor {
 		String message = strBuilder.toString().trim();
 		
 		if(args[0].equalsIgnoreCase("CONSOLE")) {
+			String prefix = ChatColor.YELLOW + sender.getName() + " to CONSOLE: " + ChatColor.WHITE;
 			plugin.getServer().getConsoleSender().sendMessage(prefix + message);
 			plugin.lastSender.put("CONSOLE", sender.getName());
 		}
 		else {
+			String prefix = ChatColor.YELLOW + sender.getName() + " to " + targetPlayer.getName() + ": " + ChatColor.WHITE;
 			targetPlayer.sendMessage(prefix + message);
 			plugin.lastSender.put(targetPlayer.getName(), sender.getName());
 		}
