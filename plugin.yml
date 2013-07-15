@@ -44,12 +44,15 @@ commands:
   playerinfo:
     usage: /playerinfo <player>
     aliases: pinfo
+  teleport:
+    usage: /tp
 permissions:
   adminaid.*:
     description: gives access to all adminaid commands and permissions
     children:
       adminaid.mail.*: true
       adminaid.note.*: true
+      adminaid.teleport.*: true
       adminaid.reload: true
       adminaid.ban: true
       adminaid.tempban: true
@@ -82,6 +85,12 @@ permissions:
       adminaid.mail.sendall: true
       adminaid.mail.sendstaff: true
       adminaid.mail.remove: true
+  adminaid.teleport.*:
+    description: gives access to all teleport commands and permissions
+    children:
+      adminaid.teleport: true
+      adminaid.teleport.others: true
+      adminaid.teleport.coordinates: true
   adminaid.note.read:
     description: allows sender to read  notes
     default: op
@@ -159,4 +168,13 @@ permissions:
     default: op
   adminaid.playerinfo:
     description: allows sender to view information about player
+    default: op
+  adminaid.teleport:
+    description: allows sender to teleport to another player
+    default: op
+  adminaid.teleport.others:
+    description: allows sender to teleport other players
+    default: op
+  adminaid.teleport.coordinates:
+    description: allows sender to teleport to coordinates
     default: op
