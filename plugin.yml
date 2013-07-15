@@ -1,0 +1,162 @@
+name: AdminAid
+main: com.gmail.snipsrevival.AdminAid
+version: 1.0.0
+author: SnipsRevival
+description: Create notes about players to keep your staff informed at all times!
+load: STARTUP
+softdepend: [OnTime]
+commands:
+  note:
+    aliases: reminder
+    usage: /note <add|read|remove|removeall> <playername> [message|page #|note #]
+  mail:
+    usage: /mail <send|sendall|sendstaff|read|remove|removeall> [playername|message|page #|note #] [message]
+  adminaid:
+    usage: /adminaid reload
+  ban:
+    usage: /ban <playername> [reason]
+  tempban:
+    usage: /tempban <playername> <time> [reason]
+    aliases: tban
+  unban:
+    usage: /unban <playername> [reason]
+  kick:
+    usage: /kick <playername> [reason]
+  mute:
+    usage: /mute <playername> [reason]
+  tempmute:
+    usage: /tempmute <playername> <time> [reason]
+    aliases: tmute
+  unmute:
+    usage: /unmute <playername> [reason]
+  warn:
+    usage: /warn <playername> <reason>
+  rules:
+    usage: /rules [page #]
+  info:
+    usage: /info [topic] [page #]
+  msg:
+    usage: /msg <player> <message>
+    aliases: [tell, t, m, whisper]
+  reply:
+    usage: /reply <message>
+    aliases: r
+  playerinfo:
+    usage: /playerinfo <player>
+    aliases: pinfo
+permissions:
+  adminaid.*:
+    description: gives access to all adminaid commands and permissions
+    children:
+      adminaid.mail.*: true
+      adminaid.note.*: true
+      adminaid.reload: true
+      adminaid.ban: true
+      adminaid.tempban: true
+      adminaid.unban: true
+      adminaid.kick: true
+      adminaid.mute: true
+      adminaid.tempmute: true
+      adminaid.unmute: true
+      adminaid.warn: true
+      adminaid.banexempt: true
+      adminaid.muteexempt: true
+      adminaid.kickexempt: true
+      adminaid.rules: true
+      adminaid.info: true
+      adminaid.staffmember: true
+      adminaid.msg: true
+      adminaid.playerinfo: true
+  adminaid.note.*:
+    description: gives access to all note commands and permissions
+    children:
+      adminaid.note.read: true
+      adminaid.note.read.self: true
+      adminaid.note.add: true
+      adminaid.note.remove: true
+  adminaid.mail.*:
+    description: gives access to all mail commands and permissions
+    children:
+      adminaid.mail.read: true
+      adminaid.mail.send: true
+      adminaid.mail.sendall: true
+      adminaid.mail.sendstaff: true
+      adminaid.mail.remove: true
+  adminaid.note.read:
+    description: allows sender to read  notes
+    default: op
+  adminaid.note.read.self:
+    description: allows sender to read only notes about him/herself
+    default: false
+  adminaid.note.add:
+    description: allows sender to add notes
+    default: op
+  adminaid.note.remove:
+    description: allows sender to remove notes
+    default: op
+  adminaid.mail.read:
+    description: allows sender to read messages in his/her mailbox
+    default: op
+  adminaid.mail.send:
+    description: allows sender to send a message to a player's mailbox
+    default: op
+  adminaid.mail.sendall:
+    description: allows sender to send a message to all players' mailboxes
+    default: op
+  adminaid.mail.sendstaff:
+    description: allows sender to send a message to all staff members' mailboxes
+    default: op
+  adminaid.mail.remove:
+    description: allows sender to remove a message from his/her mailbox
+    default: op
+  adminaid.reload:
+    description: allows sender to reload the configuration file
+    default: op
+  adminaid.ban:
+    description: allows sender to ban other players
+    default: op
+  adminaid.tempban:
+    description: allows sender to tempban other players
+    default: op
+  adminaid.unban:
+    description: allows sender to unban other players
+    default: op
+  adminaid.kick:
+    description: allows sender to kick other players
+    default: op
+  adminaid.mute:
+    description: allows sender to mute other players
+    default: op
+  adminaid.tempmute:
+    description: allows sender to tempmute other players
+    default: op
+  adminaid.unmute:
+    description: allows sender to unmute other players
+    default: op
+  adminaid.warn:
+    description: allows sender to warn other players
+    default: op
+  adminaid.banexempt:
+    description: prevents player from being banned or tempbanned
+    default: op
+  adminaid.muteexempt:
+    description: prevents player from being muted or tempmuted
+    default: op
+  adminaid.kickexempt:
+    description: prevents player from being kicked
+    default: op
+  adminaid.rules:
+    description: allows sender to use the /rules command
+    default: op
+  adminaid.info:
+    description: allows sender to use the /info command
+    default: op
+  adminaid.staffmember:
+    description: this permission will identify your staff members
+    default: op
+  adminaid.msg:
+    description: allows sender to use /msg and /reply
+    default: op
+  adminaid.playerinfo:
+    description: allows sender to view information about player
+    default: op
