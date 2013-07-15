@@ -27,7 +27,7 @@ public class ConfigValues {
 	private boolean showDailyPlayTime = false;
 	
 	private String prefix = "";
-	
+		
 	public ConfigValues(AdminAid plugin) {
 		this.plugin = plugin;
 		
