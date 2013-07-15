@@ -62,7 +62,7 @@ public class CommandMsg implements CommandExecutor {
 			plugin.lastSender.put("CONSOLE", sender.getName());
 		}
 		else {
-			String prefix = ChatColor.YELLOW + sender.getName() + " to " + targetPlayer.getName() + ": " + ChatColor.WHITE;
+			String prefix = ChatColor.YELLOW + sender.getName() + " to you: " + ChatColor.WHITE;
 			targetPlayer.sendMessage(prefix + message);
 			plugin.lastSender.put(targetPlayer.getName(), sender.getName());
 		}
