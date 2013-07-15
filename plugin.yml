@@ -46,6 +46,7 @@ commands:
     aliases: pinfo
   teleport:
     usage: /tp
+    aliases: tp
 permissions:
   adminaid.*:
     description: gives access to all adminaid commands and permissions
