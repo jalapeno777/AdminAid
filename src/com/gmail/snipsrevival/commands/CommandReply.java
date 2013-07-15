@@ -20,6 +20,9 @@ public class CommandReply implements CommandExecutor {
 		this.plugin = plugin;
 		plugin.getCommand("reply").setExecutor(this);
 	}
+	
+	//TODO: send private messages to players who have spy set
+	//TODO: fix <index> in prefix
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

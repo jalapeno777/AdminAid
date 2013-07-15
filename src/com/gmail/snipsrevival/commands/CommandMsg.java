@@ -22,6 +22,7 @@ public class CommandMsg implements CommandExecutor {
 	}
 	
 	//TODO: send private messages to players who have spy set
+	//TODO: fix <index> in prefix
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
