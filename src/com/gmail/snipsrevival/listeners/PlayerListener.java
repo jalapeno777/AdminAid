@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.CommonUtilities;
+import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.Updater;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
@@ -54,6 +55,14 @@ public class PlayerListener implements Listener {
 				});
 			}
 		}
+		
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			public void run() {
+				for(String line : new ConfigValues(plugin).getLoginMessages(player)) {
+					player.sendMessage(line);
+				}
+			}
+		});
 		
 		if(player.hasPermission("adminaid.banexempt")) userFile.set("BanExempt", true);
 		if(player.hasPermission("adminaid.muteexempt")) userFile.set("MuteExempt", true);
