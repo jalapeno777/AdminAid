@@ -20,6 +20,7 @@ public class AdminAid extends JavaPlugin {
 	public Map<String, String> lastSender;
 	
 	//TODO: have to setup chat spy command
+	//TODO: Document config file on BukkitDev
 		
 	@Override
 	public void onEnable() {
@@ -38,7 +39,8 @@ public class AdminAid extends JavaPlugin {
 		getConfig().options().copyDefaults(true);
 		saveDefaultConfig();
 		
-		new CommandBan(this); 
+		new CommandBan(this);
+		new CommandChatspy(this);
 		new CommandInfo(this);
 		new CommandKick(this);
 		new CommandMail(this);
