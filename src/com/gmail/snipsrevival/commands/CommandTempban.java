@@ -30,7 +30,7 @@ public class CommandTempban implements CommandExecutor {
 	public CommandTempban(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("tempban").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableTempban") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Tempban") == true) {
 			PluginCommand tempban = plugin.getCommand("tempban");
 			CommandUtilities.unregisterBukkitCommand(tempban);
 		}

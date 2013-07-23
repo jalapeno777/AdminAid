@@ -26,7 +26,7 @@ public class CommandUnmute implements CommandExecutor {
 	public CommandUnmute(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("unmute").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableUnmute") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Unmute") == true) {
 			PluginCommand unmute = plugin.getCommand("unmute");
 			CommandUtilities.unregisterBukkitCommand(unmute);
 		}

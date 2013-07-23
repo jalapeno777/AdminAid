@@ -26,7 +26,7 @@ public class CommandWarn implements CommandExecutor {
 	public CommandWarn(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("warn").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableWarn") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Warn") == true) {
 			PluginCommand warn = plugin.getCommand("warn");
 			CommandUtilities.unregisterBukkitCommand(warn);
 		}

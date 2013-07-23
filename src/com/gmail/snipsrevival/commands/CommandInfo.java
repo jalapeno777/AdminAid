@@ -22,7 +22,7 @@ public class CommandInfo implements CommandExecutor {
 	public CommandInfo(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("info").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableInfo") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Info") == true) {
 			PluginCommand info = plugin.getCommand("info");
 			CommandUtilities.unregisterBukkitCommand(info);
 		}

@@ -26,7 +26,7 @@ public class CommandMute implements CommandExecutor {
 	public CommandMute(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("mute").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableMute") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Mute") == true) {
 			PluginCommand mute = plugin.getCommand("mute");
 			CommandUtilities.unregisterBukkitCommand(mute);
 		}

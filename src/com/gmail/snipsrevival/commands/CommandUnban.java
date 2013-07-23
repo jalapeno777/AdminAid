@@ -26,7 +26,7 @@ public class CommandUnban implements CommandExecutor {
 	public CommandUnban(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("unban").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableUnban") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Unban") == true) {
 			PluginCommand unban = plugin.getCommand("unban");
 			CommandUtilities.unregisterBukkitCommand(unban);
 		}

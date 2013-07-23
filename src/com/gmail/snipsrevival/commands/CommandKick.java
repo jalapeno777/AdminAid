@@ -26,7 +26,7 @@ public class CommandKick implements CommandExecutor {
 	public CommandKick(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("kick").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableKick") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Kick") == true) {
 			PluginCommand kick = plugin.getCommand("kick");
 			CommandUtilities.unregisterBukkitCommand(kick);
 		}

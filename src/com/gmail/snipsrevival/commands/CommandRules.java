@@ -20,7 +20,7 @@ public class CommandRules implements CommandExecutor {
 	public CommandRules(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("rules").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableRules") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Rules") == true) {
 			PluginCommand rules = plugin.getCommand("rules");
 			CommandUtilities.unregisterBukkitCommand(rules);
 		}

@@ -30,7 +30,7 @@ public class CommandTempmute implements CommandExecutor {
 	public CommandTempmute(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("tempmute").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableTempmute") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Tempmute") == true) {
 			PluginCommand tempmute = plugin.getCommand("tempmute");
 			CommandUtilities.unregisterBukkitCommand(tempmute);
 		}

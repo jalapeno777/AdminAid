@@ -26,7 +26,7 @@ public class CommandBan implements CommandExecutor {
 	public CommandBan(AdminAid plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("ban").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableBan") == true) {
+		if(plugin.getConfig().getBoolean("DisableCommand.Ban") == true) {
 			PluginCommand ban = plugin.getCommand("ban");
 			CommandUtilities.unregisterBukkitCommand(ban);
 		}
