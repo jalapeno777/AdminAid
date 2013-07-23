@@ -156,6 +156,15 @@ public class CommandPlayerinfo implements CommandExecutor {
 			}
 		}
 		
+		if(config.showChatSpyStatus() == true) {
+			if(userFile.getBoolean("ChatSpy") == true) {
+				sender.sendMessage(ChatColor.YELLOW + "ChatSpy Enabled: " + ChatColor.WHITE + "yes");
+			}
+			else {
+				sender.sendMessage(ChatColor.YELLOW + "ChatSpy Enabled: " + ChatColor.WHITE + "no");
+			}
+		}
+		
 		if(config.showBanExemptStatus() == true) {
 			if(userFile.getBoolean("BanExempt") == true) {
 				sender.sendMessage(ChatColor.YELLOW + "Ban Exempt: " + ChatColor.WHITE + "yes");
