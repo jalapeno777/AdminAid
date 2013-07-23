@@ -1,10 +1,13 @@
 package com.gmail.snipsrevival.commands;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.snipsrevival.AdminAid;
@@ -19,9 +22,6 @@ public class CommandReply implements CommandExecutor {
 		this.plugin = plugin;
 		plugin.getCommand("reply").setExecutor(this);
 	}
-	
-	//TODO: send private messages to players who have spy set
-	//TODO: fix <index> in prefix
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -55,12 +55,27 @@ public class CommandReply implements CommandExecutor {
 			String prefix = ChatColor.YELLOW + sender.getName() + " to CONSOLE: " + ChatColor.WHITE;
 			plugin.getServer().getConsoleSender().sendMessage(prefix + message);
 			plugin.lastSender.put("CONSOLE", sender.getName());
+			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
+				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
+				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
+				if(userFile.getBoolean("ChatSpy") == true) {
+					spy.sendMessage(prefix + message);
+				}
+			}
 		}
 		else {
 			Player targetPlayer = Bukkit.getServer().getPlayer(name);
 			String prefix = ChatColor.YELLOW + sender.getName() + " to you: " + ChatColor.WHITE;
 			targetPlayer.sendMessage(prefix + message);
 			plugin.lastSender.put(targetPlayer.getName(), sender.getName());
+			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
+				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
+				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
+				if(userFile.getBoolean("ChatSpy") == true) {
+					prefix = ChatColor.YELLOW + sender.getName() + " to " + targetPlayer.getName() + ": " + ChatColor.WHITE;
+					spy.sendMessage(prefix + message);
+				}
+			}
 		}
 		sender.sendMessage(ChatColor.GREEN + "Private message sent successfully");
 		return true;
