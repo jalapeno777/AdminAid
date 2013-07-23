@@ -5,10 +5,18 @@
 # to set this configuration file here:
 # http://dev.bukkit.org/bukkit-plugins/adminaid/pages/configuration-file-documentation/
 
+Version: 1.0.0
+
 EnableVersionChecker: true
 AutoUpdateConfig: true
 
 Prefix: '&e[<index>] <MM>/<dd>/<yyyy> by <playername>: &f'
+
+LoginMessages:
+- '&6Welcome &c<player>&6!'
+- '&6It is currently &c<date>'
+- '&6There are currently &c<playercount> &6players online'
+- '&6Enjoy your time on the server and remember to be respectful'
 
 AlwaysNotifyMailboxMessage: false
 
@@ -51,7 +59,8 @@ Info:
 
 StaffInfo:
   Topic1:
-  - 'the info stored here can only be seen by players with the permission moderatornotes.staffmember'
+  - 'the info stored here can only be seen by'
+  - 'players with the permission adminaid.staffmember'
 
 PlayerInfo:
   ShowOnlineStatus: true
@@ -62,6 +71,7 @@ PlayerInfo:
   ShowBannedStatus: true
   ShowMutedStatus: true
   ShowStaffMemberStatus: true
+  ShowChatSpyStatus: true
   ShowBanExemptStatus: true
   ShowMuteExemptStatus: true
   ShowKickExemptStatus: true
@@ -75,5 +85,3 @@ MessagesPerPage:
   Mail: 5
   Rules: 5
   Info: 5
-
-Version: 1.0.0
