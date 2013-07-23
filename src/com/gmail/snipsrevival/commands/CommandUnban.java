@@ -81,7 +81,7 @@ public class CommandUnban implements CommandExecutor {
 
 		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been unbanned for this reason: " + message);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordUnbans") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Unbans") == true) {
 			noteList.add(prefix + "was unbanned " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been unbanned for this reason: " + message);
 			userFile.set("Notes", noteList);

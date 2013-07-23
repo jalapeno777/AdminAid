@@ -120,7 +120,7 @@ public class CommandTempban implements CommandExecutor {
 			Bukkit.getServer().getPlayer(args[0]).kickPlayer("You are tempbanned until " + unbanDate + " for this reason: " + message);
 		}
 		
-		if(plugin.getConfig().getBoolean("AutoRecordTempbans") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Tempbans") == true) {
 			noteList.add(prefix + "has been tempbanned until " + unbanDate + " for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been tempbanned until " + unbanDate + " for this reason: " + message);
 			userFile.set("Notes", noteList);

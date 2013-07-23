@@ -83,7 +83,7 @@ public class CommandMute implements CommandExecutor {
 		userFile.set("PermaMuteReason", "muted for this reason: " + message);
 		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been muted for this reason: " + message);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordMutes") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Mutes") == true) {
 			noteList.add(prefix + "has been muted for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been muted for this reason: " + message);
 			userFile.set("Notes", noteList);

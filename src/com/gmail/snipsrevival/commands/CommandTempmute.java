@@ -122,7 +122,7 @@ public class CommandTempmute implements CommandExecutor {
 		userFile.set("TempMuteEnd", (System.currentTimeMillis()/1000) + unmuteTime);
 		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been tempmuted until " + unmuteDate + " " + message);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordTempmutes") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Tempmutes") == true) {
 			noteList.add(prefix + "has been tempmuted until " + unmuteDate + " for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been tempmuted until " + unmuteDate + " for this reason: " + message);
 			userFile.set("Notes", noteList);

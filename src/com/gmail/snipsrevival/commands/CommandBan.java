@@ -86,7 +86,7 @@ public class CommandBan implements CommandExecutor {
 			Bukkit.getServer().getPlayer(args[0]).kickPlayer("You are banned for this reason: " + message);
 		}
 		
-		if(plugin.getConfig().getBoolean("AutoRecordBans") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Bans") == true) {
 			noteList.add(prefix + "has been banned for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been banned for this reason: " + message);
 			userFile.set("Notes", noteList);

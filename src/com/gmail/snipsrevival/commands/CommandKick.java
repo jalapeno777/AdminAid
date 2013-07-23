@@ -76,7 +76,7 @@ public class CommandKick implements CommandExecutor {
 		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been kicked for this reason: " + message);
 		targetPlayer.kickPlayer("You were kicked for this reason: " + message);
 
-		if(plugin.getConfig().getBoolean("AutoRecordKicks") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Kicks") == true) {
 			noteList.add(prefix + "has been kicked for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been kicked for this reason: " + message);
 			userFile.set("Notes", noteList);

@@ -80,7 +80,7 @@ public class CommandUnmute implements CommandExecutor {
 		
 		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been unmuted for this reason: " + message);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordUnmutes") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Unmutes") == true) {
 			noteList.add(prefix + "has been unmuted for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been unmuted for this reason: " + message);
 			userFile.set("Notes", noteList);

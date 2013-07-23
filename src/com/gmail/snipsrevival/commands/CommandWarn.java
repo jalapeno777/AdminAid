@@ -70,7 +70,7 @@ public class CommandWarn implements CommandExecutor {
 		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been warned for this reason: " + message);
 		FileUtilities.createNewFile(file);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordWarns") == true) {
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Warns") == true) {
 			noteList.add(prefix + "has been warned for this reason: " + message);
 			common.addStringStaffList(prefix + targetPlayer.getName() + " has been warned for this reason: " + message);
 			userFile.set("Notes", noteList);
