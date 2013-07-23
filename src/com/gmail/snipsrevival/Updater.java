@@ -23,12 +23,10 @@ public class Updater {
 	
 	public void updateConfig() {
 		
-		if(plugin.getConfig().getBoolean("AutoUpdateConfig") == true) {
-			
-			String currentVersion = plugin.getDescription().getVersion();
-			String configVersion = plugin.getConfig().getString("Version");
-			
-			if(!currentVersion.equalsIgnoreCase(configVersion)) {
+		String currentVersion = plugin.getDescription().getVersion();
+		String configVersion = plugin.getConfig().getString("Version");
+		if(!currentVersion.equalsIgnoreCase(configVersion)) {
+			if(plugin.getConfig().getBoolean("AutoUpdateConfig") == true) {
 				
 				Map<String, Object> keyValuePairs = new HashMap<String, Object>();
 				
@@ -50,9 +48,9 @@ public class Updater {
 				plugin.getLogger().info("Configuration file was outdated");
 				plugin.getLogger().info("Missing configuration keys have now been added!");
 			}
-		}
-		else {
-			plugin.getLogger().warning("The configuration file is not up to date!");
+			else {
+				plugin.getLogger().warning("The configuration file is not up to date!");
+			}
 		}
 	}
 	
