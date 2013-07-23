@@ -1,7 +1,10 @@
 package com.gmail.snipsrevival;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -18,7 +21,51 @@ public class Updater {
 		this.plugin = plugin;
 	}
 	
-	public boolean isLatest() {
+	public void updateConfig() {
+		
+		if(plugin.getConfig().getBoolean("AutomaticallyUpdateConfig") == true) {
+			
+			String currentVersion = plugin.getDescription().getVersion();
+			String configVersion = plugin.getConfig().getString("Version");
+			
+			if(!currentVersion.equalsIgnoreCase(configVersion)) {
+				
+				Map<String, Object> keyValuePairs = new HashMap<String, Object>();
+				
+				for(String key : plugin.getConfig().getKeys(true)) {
+					keyValuePairs.put(key, plugin.getConfig().get(key));
+				}
+						
+				File configFile = new File(plugin.getDataFolder() + "/config.yml");
+				configFile.delete();
+				
+				plugin.getConfig().options().copyDefaults(true);
+	
+				for(String key : keyValuePairs.keySet()) {
+					plugin.getConfig().set(key, keyValuePairs.get(key));
+				}
+				plugin.getConfig().set("Version", currentVersion);
+				plugin.saveConfig();
+				
+				plugin.getLogger().info("Configuration file was outdated");
+				plugin.getLogger().info("Missing configuration keys have now been added!");
+			}
+		}
+	}
+	
+	public void performVersionCheck() {
+		if(plugin.getConfig().getBoolean("EnableUpdateChecker") == true) {
+			if(isLatest()) {
+				plugin.getLogger().warning("There is a newer version of AdminAid available");
+				plugin.getLogger().warning("Download it at " + getDownloadLink());
+			}
+			else {
+				plugin.getLogger().info("You have the latest version of AdminAid!");
+			}
+		}
+	}
+	
+	private boolean isLatest() {
 		plugin.getLogger().info("Checking for newer versions...");
 		try {
 			InputStream input = new URL("http://dev.bukkit.org/bukkit-plugins/adminaid/files.rss").openConnection().getInputStream();
@@ -51,7 +98,7 @@ public class Updater {
 		return true;
 	}
 	
-	public String getDownloadLink() {
+	private String getDownloadLink() {
 		try {
 			InputStream input = new URL("http://dev.bukkit.org/bukkit-plugins/adminaid/files.rss").openConnection().getInputStream();
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
