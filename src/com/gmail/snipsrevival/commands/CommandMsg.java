@@ -64,7 +64,9 @@ public class CommandMsg implements CommandExecutor {
 				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 				if(userFile.getBoolean("ChatSpy") == true) {
-					spy.sendMessage(prefix + message);
+					if(!spy.getName().equalsIgnoreCase(sender.getName())) {
+						spy.sendMessage(prefix + message);
+					}
 				}
 			}
 		}
@@ -77,7 +79,10 @@ public class CommandMsg implements CommandExecutor {
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 				if(userFile.getBoolean("ChatSpy") == true) {
 					prefix = ChatColor.YELLOW + sender.getName() + " to " + targetPlayer.getName() + ": " + ChatColor.WHITE;
-					spy.sendMessage(prefix + message);
+					if(!spy.getName().equalsIgnoreCase(sender.getName()) &&
+							!spy.getName().equalsIgnoreCase(targetPlayer.getName())) {
+						spy.sendMessage(prefix + message);
+					}
 				}
 			}
 		}
