@@ -6,7 +6,7 @@
 # http://dev.bukkit.org/bukkit-plugins/adminaid/pages/configuration-file-documentation/
 
 EnableVersionChecker: true
-AutomaticallyUpdateConfig: true
+AutoUpdateConfig: true
 
 Prefix: '&e[<index>] <MM>/<dd>/<yyyy> by <playername>: &f'
 
@@ -26,14 +26,15 @@ DisableCommand:
   Info: false
   Rules: false
 
-AutoRecordBans: true
-AutoRecordTempbans: true
-AutoRecordUnbans: true
-AutoRecordKicks: true
-AutoRecordMutes: true
-AutoRecordTempmutes: true
-AutoRecordUnmutes: true
-AutoRecordWarns: true
+AutoRecordNotes:
+  Bans: true
+  Tempbans: true
+  Unbans: true
+  Kicks: true
+  Mutes: true
+  Tempmutes: true
+  Unmutes: true
+  Warns: true
 
 Rules:
 - 'This is rule #1'
