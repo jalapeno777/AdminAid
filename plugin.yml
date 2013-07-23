@@ -3,6 +3,7 @@ main: com.gmail.snipsrevival.AdminAid
 version: 1.0.0
 author: SnipsRevival
 description: Create notes about players to keep your staff informed at all times!
+website: http://dev.bukkit.org/bukkit-plugins/adminaid/
 load: STARTUP
 softdepend: [OnTime]
 commands:
@@ -47,6 +48,8 @@ commands:
   teleport:
     usage: /tp
     aliases: tp
+  chatspy:
+    usage: /chatspy [on|off]
 permissions:
   adminaid.*:
     description: gives access to all adminaid commands and permissions
@@ -71,6 +74,7 @@ permissions:
       adminaid.staffmember: true
       adminaid.msg: true
       adminaid.playerinfo: true
+      adminaid.chatspy: true
   adminaid.note.*:
     description: gives access to all note commands and permissions
     children:
@@ -178,4 +182,7 @@ permissions:
     default: op
   adminaid.teleport.coordinates:
     description: allows sender to teleport to coordinates
+    default: op
+  adminaid.chatspy:
+    description: allows sender to enable or disable chatspy for themselves
     default: op
