@@ -23,7 +23,7 @@ public class Updater {
 	
 	public void updateConfig() {
 		
-		if(plugin.getConfig().getBoolean("AutomaticallyUpdateConfig") == true) {
+		if(plugin.getConfig().getBoolean("AutoUpdateConfig") == true) {
 			
 			String currentVersion = plugin.getDescription().getVersion();
 			String configVersion = plugin.getConfig().getString("Version");
@@ -51,6 +51,9 @@ public class Updater {
 				plugin.getLogger().info("Missing configuration keys have now been added!");
 			}
 		}
+		else {
+			plugin.getLogger().warning("The configuration file is not up to date!");
+		}
 	}
 	
 	public void performVersionCheck() {
@@ -65,7 +68,7 @@ public class Updater {
 		}
 	}
 	
-	private boolean isLatest() {
+	public boolean isLatest() {
 		plugin.getLogger().info("Checking for newer versions...");
 		try {
 			InputStream input = new URL("http://dev.bukkit.org/bukkit-plugins/adminaid/files.rss").openConnection().getInputStream();
@@ -98,7 +101,7 @@ public class Updater {
 		return true;
 	}
 	
-	private String getDownloadLink() {
+	public String getDownloadLink() {
 		try {
 			InputStream input = new URL("http://dev.bukkit.org/bukkit-plugins/adminaid/files.rss").openConnection().getInputStream();
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
