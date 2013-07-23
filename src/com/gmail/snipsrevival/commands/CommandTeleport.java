@@ -65,6 +65,10 @@ public class CommandTeleport implements CommandExecutor {
 		}
 		Player player = (Player) sender;
 		if(args.length == 1) {
+			if(!sender.hasPermission("adminaid.teleport")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
+				return true;
+			}
 			Player targetPlayer = Bukkit.getServer().getPlayer(args[0]);
 			if(common.nameContainsInvalidCharacter(args[0])) {
 				sender.sendMessage(ChatColor.RED + "That is an invalid playername");
@@ -79,6 +83,10 @@ public class CommandTeleport implements CommandExecutor {
 			return true;
 		}
 		if(args.length == 2) {
+			if(!sender.hasPermission("adminaid.teleport.others")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
+				return true;
+			}
 			Player targetPlayer1 = Bukkit.getServer().getPlayer(args[0]);
 			Player targetPlayer2 = Bukkit.getServer().getPlayer(args[1]);
 			if(common.nameContainsInvalidCharacter(args[0]) || 
@@ -101,6 +109,10 @@ public class CommandTeleport implements CommandExecutor {
 			return true;
 		}
 		if(args.length == 3) {
+			if(!sender.hasPermission("adminaid.teleport.coordinates")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
+				return true;
+			}
 			if(!common.isDouble(args[0]) || !common.isDouble(args[1]) || !common.isDouble(args[2])) {
 				sender.sendMessage(ChatColor.RED + "1 or more coordinates are invalid");
 				return true;
@@ -111,10 +123,14 @@ public class CommandTeleport implements CommandExecutor {
 			World world = player.getWorld();
 			Location loc = new Location(world, x, y, z);
 			player.teleport(loc);
-			sender.sendMessage(ChatColor.GREEN + "You were teleported to a set of coordinates in  world " + world.getName());
+			sender.sendMessage(ChatColor.GREEN + "You were teleported to a set of coordinates in world " + world.getName());
 			return true;
 		}
 		if(args.length == 4) {
+			if(!sender.hasPermission("adminaid.teleport.coordinates")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
+				return true;
+			}
 			if(!common.isDouble(args[0]) || !common.isDouble(args[1]) || !common.isDouble(args[2])) {
 				sender.sendMessage(ChatColor.RED + "1 or more coordinates are invalid");
 				return true;
@@ -129,7 +145,7 @@ public class CommandTeleport implements CommandExecutor {
 			double z = Integer.parseInt(args[2]);
 			Location loc = new Location(world, x, y, z);
 			player.teleport(loc);
-			sender.sendMessage(ChatColor.GREEN + "You were teleported to a set of coordinates in  world " + world.getName());
+			sender.sendMessage(ChatColor.GREEN + "You were teleported to a set of coordinates in world " + world.getName());
 			return true;
 		}
 		return true;
