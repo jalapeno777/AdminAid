@@ -23,23 +23,20 @@ public class AdminAid extends JavaPlugin {
 		
 	@Override
 	public void onEnable() {
-		
+	
 		common = new CommonUtilities(this);
 		lastSender = new HashMap<String, String>();
 		onTime = Bukkit.getPluginManager().getPlugin("OnTime");
+		Updater updater = new Updater(this);
 		
-		if(getConfig().getBoolean("EnableUpdateChecker") == true) {
-			Updater updater = new Updater(this);
-			if(!updater.isLatest()) {
-				this.getLogger().warning("There is a newer version of AdminAid available");
-				this.getLogger().warning("Download it at " + updater.getDownloadLink());
-			}
-			else {
-				this.getLogger().info("You have the latest version of AdminAid!");
-			}
-		}
+		updater.performVersionCheck();
+		updater.updateConfig();
 					
 		File userDataDir = new File(this.getDataFolder() + "/userdata/");
+		FileUtilities.createNewDir(userDataDir);
+		
+		getConfig().options().copyDefaults(true);
+		saveDefaultConfig();
 		
 		new CommandBan(this); 
 		new CommandInfo(this);
@@ -61,10 +58,5 @@ public class AdminAid extends JavaPlugin {
 		
 		new ChatListener(this);
 		new PlayerListener(this);
-		
-		FileUtilities.createNewDir(userDataDir);
-		
-		getConfig().options().copyDefaults(true);
-		saveDefaultConfig();
 	}
 }
