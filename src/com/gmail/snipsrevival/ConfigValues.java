@@ -1,10 +1,17 @@
 package com.gmail.snipsrevival;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class ConfigValues {
 	
@@ -18,6 +25,7 @@ public class ConfigValues {
 	private boolean showBannedStatus = false;
 	private boolean showMutedStatus = false;
 	private boolean showStaffMemberStatus = false;
+	private boolean showChatSpyStatus = false;
 	private boolean showBanExemptStatus = false;
 	private boolean showMuteExemptStatus = false;
 	private boolean showKickExemptStatus = false;
@@ -27,6 +35,8 @@ public class ConfigValues {
 	private boolean showDailyPlayTime = false;
 	
 	private String prefix = "";
+	
+	private List<String> loginMessages = new ArrayList<String>();
 		
 	public ConfigValues(AdminAid plugin) {
 		this.plugin = plugin;
@@ -39,6 +49,7 @@ public class ConfigValues {
 		showBannedStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowBannedStatus");
 		showMutedStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowMutedStatus");
 		showStaffMemberStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowStaffMemberStatus");
+		showChatSpyStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowChatSpyStatus");
 		showBanExemptStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowBanExemptStatus");
 		showMuteExemptStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowMuteExemptStatus");
 		showKickExemptStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowKickExemptStatus");
@@ -48,6 +59,8 @@ public class ConfigValues {
 		showDailyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowDailyPlayTime");
 		
 		prefix = plugin.getConfig().getString("Prefix");
+		
+		loginMessages = plugin.getConfig().getStringList("LoginMessages");
 	}
 	
 	public boolean showOnlineStatus() {
@@ -80,6 +93,10 @@ public class ConfigValues {
 	
 	public boolean showStaffMemberStatus() {
 		return showStaffMemberStatus;
+	}
+	
+	public boolean showChatSpyStatus() {
+		return showChatSpyStatus;
 	}
 	
 	public boolean showBanExemptStatus() {
@@ -125,7 +142,47 @@ public class ConfigValues {
 		prefix = prefix.replace("<ss>", new SimpleDateFormat("ss").format(date));
 		prefix = prefix.replace("<a>", new SimpleDateFormat("a").format(date));
 		prefix = prefix.replace("<Z>", new SimpleDateFormat("z").format(date));
-		prefix = prefix.replace("<playername>", sender.getName());
+		prefix = prefix.replace("<player>", sender.getName());
 		return prefix;
+	}
+	
+	public List<String> getLoginMessages(Player player) {
+		Date date = new Date();
+		String dateString = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a z").format(date);
+		
+		int maxPlayerCount = Bukkit.getServer().getMaxPlayers();
+		int onlinePlayerCount = 0; 
+		
+		StringBuilder sb1 = new StringBuilder();
+		for(Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+			sb1.append(onlinePlayer.getName() + ", ");
+			onlinePlayerCount++;
+		}
+		String playerList = "{" + sb1.toString().trim() + "}";
+		Pattern pattern1 = Pattern.compile(",}");
+		Matcher matcher1 = pattern1.matcher(playerList);
+		playerList = matcher1.replaceAll("}");
+		
+		StringBuilder sb2 = new StringBuilder();
+		for(World world : Bukkit.getServer().getWorlds()) {
+			sb2.append(world.getName() + ", ");
+		}
+		String worldList = "{" + sb2.toString().trim() + "}";
+		Pattern pattern2 = Pattern.compile(",}");
+		Matcher matcher2 = pattern2.matcher(worldList);
+		worldList = matcher2.replaceAll("}");
+		
+		for(int i = 0; i < loginMessages.size(); i++) {
+			String line = loginMessages.get(i);
+			line = ChatColor.translateAlternateColorCodes('&', line);
+			line = line.replace("<player>", player.getName());
+			line = line.replace("<playerlist>", playerList);
+			line = line.replace("<world>", player.getWorld().getName());
+			line = line.replace("<worldlist>", worldList);
+			line = line.replace("<date>", dateString);
+			line = line.replace("<playercount>", onlinePlayerCount + "/" + maxPlayerCount);
+			loginMessages.set(i, line);
+		}
+		return loginMessages;
 	}
 }
