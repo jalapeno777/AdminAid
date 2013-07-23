@@ -18,10 +18,7 @@ public class AdminAid extends JavaPlugin {
 	
 	public Plugin onTime;
 	public Map<String, String> lastSender;
-	
-	//TODO: Document config file on BukkitDev
-	//TODO: remove duplicate chatspy messages when chatspyer receives a message
-		
+			
 	@Override
 	public void onEnable() {
 	

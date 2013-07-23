@@ -30,9 +30,7 @@ public class PlayerListener implements Listener {
 		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
-	//TODO: setup MOTD
-		
+			
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		
