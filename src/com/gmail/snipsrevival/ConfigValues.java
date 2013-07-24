@@ -34,6 +34,11 @@ public class ConfigValues {
 	private boolean showWeeklyPlayTime = false;
 	private boolean showDailyPlayTime = false;
 	
+	private double rulesPerPage = 0;
+	private double infoPerPage = 0;
+	private double mailPerPage = 0;
+	private double notesPerPage = 0;
+	
 	private String prefix = "";
 	
 	private List<String> loginMessages = new ArrayList<String>();
@@ -57,6 +62,12 @@ public class ConfigValues {
 		showMonthlyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowMonthlyPlayTime");
 		showWeeklyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowWeeklyPlayTime");
 		showDailyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowDailyPlayTime");
+		
+		rulesPerPage = plugin.getConfig().getDouble("MessagesPerPage.Rules");
+		infoPerPage = plugin.getConfig().getDouble("MessagesPerPage.Info");
+		mailPerPage = plugin.getConfig().getDouble("MessagesPerPage.Mail");
+		notesPerPage = plugin.getConfig().getDouble("MessagesPerPage.Notes");
+
 		
 		prefix = plugin.getConfig().getString("Prefix");
 		
@@ -125,6 +136,22 @@ public class ConfigValues {
 	
 	public boolean showDailyPlayTime() {
 		return showDailyPlayTime;
+	}
+	
+	public double getRulesPerPage() {
+		return rulesPerPage;
+	}
+	
+	public double getInfoPerPage() {
+		return infoPerPage;
+	}
+	
+	public double getMailPerPage() {
+		return mailPerPage;
+	}
+	
+	public double getNotesPerPage() {
+		return notesPerPage;
 	}
 	
 	public String getPrefix(CommandSender sender) {
