@@ -2,7 +2,7 @@ name: AdminAid
 main: com.gmail.snipsrevival.AdminAid
 version: 1.0.0
 author: SnipsRevival
-description: Create notes about players to keep your staff informed at all times!
+description: Make server administration easier for your staff
 website: http://dev.bukkit.org/bukkit-plugins/adminaid/
 load: STARTUP
 softdepend: [OnTime]
@@ -57,6 +57,7 @@ permissions:
       adminaid.mail.*: true
       adminaid.note.*: true
       adminaid.teleport.*: true
+      adminaid.punish.*: true
       adminaid.reload: true
       adminaid.ban: true
       adminaid.tempban: true
@@ -96,6 +97,20 @@ permissions:
       adminaid.teleport: true
       adminaid.teleport.others: true
       adminaid.teleport.coordinates: true
+  adminaid.punish.*:
+    description: gives access to all punish commands and permissions
+    children:
+      adminaid.ban: true
+      adminaid.tempban: true
+      adminaid.unban: true
+      adminaid.mute: true
+      adminaid.tempmute: true
+      adminaid.unmute: true
+      adminaid.kick: true
+      adminaid.warn: true
+      adminaid.banexempt: true
+      adminaid.muteexempt: true
+      adminaid.kickexempt: true
   adminaid.note.read:
     description: allows sender to read  notes
     default: op
