@@ -52,7 +52,7 @@ public class CommandReply implements CommandExecutor {
 		
 		String name = plugin.lastSender.get(sender.getName());
 		if(name.equalsIgnoreCase("CONSOLE")) {
-			String prefix = ChatColor.YELLOW + sender.getName() + " to CONSOLE: " + ChatColor.WHITE;
+			String prefix = ChatColor.GOLD + "[" + sender.getName() + " to CONSOLE] " + ChatColor.WHITE;
 			plugin.getServer().getConsoleSender().sendMessage(prefix + message);
 			plugin.lastSender.put("CONSOLE", sender.getName());
 			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
@@ -67,14 +67,14 @@ public class CommandReply implements CommandExecutor {
 		}
 		else {
 			Player targetPlayer = Bukkit.getServer().getPlayer(name);
-			String prefix = ChatColor.YELLOW + sender.getName() + " to you: " + ChatColor.WHITE;
+			String prefix = ChatColor.GOLD + "[" + sender.getName() + " to you] " + ChatColor.WHITE;
 			targetPlayer.sendMessage(prefix + message);
 			plugin.lastSender.put(targetPlayer.getName(), sender.getName());
 			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
 				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 				if(userFile.getBoolean("ChatSpy") == true) {
-					prefix = ChatColor.YELLOW + sender.getName() + " to " + targetPlayer.getName() + ": " + ChatColor.WHITE;
+					prefix = ChatColor.GOLD + "[" + sender.getName() + " to " + targetPlayer.getName() + "] " + ChatColor.WHITE;
 					if(!spy.getName().equalsIgnoreCase(sender.getName()) &&
 							!spy.getName().equalsIgnoreCase(targetPlayer.getName())) {
 						spy.sendMessage(prefix + message);
