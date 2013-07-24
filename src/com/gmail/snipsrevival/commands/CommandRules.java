@@ -10,12 +10,14 @@ import org.bukkit.command.PluginCommand;
 
 import com.gmail.snipsrevival.CommonUtilities;
 import com.gmail.snipsrevival.AdminAid;
+import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 
 public class CommandRules implements CommandExecutor {
 		
 	AdminAid plugin;
 	CommonUtilities common;
+	ConfigValues config;
 	
 	public CommandRules(AdminAid plugin) {
 		this.plugin = plugin;
@@ -29,7 +31,8 @@ public class CommandRules implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
+		config = new ConfigValues(plugin);
 
 		if(!sender.hasPermission("adminaid.rules")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
@@ -41,7 +44,7 @@ public class CommandRules implements CommandExecutor {
 			return true;
 		}
 		List<String> inputList = plugin.getConfig().getStringList("Rules");
-		double configNumber = plugin.getConfig().getDouble("MessagesPerPage.Rules");
+		double configNumber = config.getRulesPerPage();
 		List<String> outputList;
 		int totalPages = common.getTotalPages(inputList, configNumber);
 		int page;

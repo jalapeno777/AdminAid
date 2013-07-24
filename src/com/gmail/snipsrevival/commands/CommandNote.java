@@ -21,6 +21,7 @@ public class CommandNote implements CommandExecutor {
 	
 	AdminAid plugin;
 	CommonUtilities common;
+	ConfigValues config;
 	
 	public CommandNote(AdminAid plugin) {
 		this.plugin = plugin;
@@ -113,7 +114,10 @@ public class CommandNote implements CommandExecutor {
 		return true;
 	}
 	
-	public boolean listPlayers(CommandSender sender, String[] args) { 
+	public boolean listPlayers(CommandSender sender, String[] args) {
+		
+		config = new ConfigValues(plugin);
+		
 		if(args.length > 2) {
 			sender.sendMessage(ChatColor.RED + "Too many arguments!");
 			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/note list [page #] " + ChatColor.RED + "to show players with notes");
@@ -138,7 +142,7 @@ public class CommandNote implements CommandExecutor {
 					}
 				}
 			}
-			double configNumber = plugin.getConfig().getDouble("MessagesPerPage.Notes");
+			double configNumber = config.getNotesPerPage();
 			List<String> outputList;
 			int totalPages = common.getTotalPages(inputList, configNumber);
 			int page;
@@ -170,7 +174,10 @@ public class CommandNote implements CommandExecutor {
 		return true;
 	}
 
-	public boolean readNotes(CommandSender sender, String[] args) {	
+	public boolean readNotes(CommandSender sender, String[] args) {
+		
+		config = new ConfigValues(plugin);
+		
 		if(args.length < 2) {
 			sender.sendMessage(ChatColor.RED + "Too few arguments!");
 			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/note read <playername> [page #] " + ChatColor.RED + "to read notes");
@@ -199,7 +206,7 @@ public class CommandNote implements CommandExecutor {
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		
 		List<String> inputList = userFile.getStringList("Notes");
-		double configNumber = plugin.getConfig().getDouble("MessagesPerPage.Notes");
+		double configNumber = config.getNotesPerPage();
 		List<String> outputList;
 		int totalPages = common.getTotalPages(inputList, configNumber);
 		int page;

@@ -12,12 +12,14 @@ import org.bukkit.command.PluginCommand;
 
 import com.gmail.snipsrevival.CommonUtilities;
 import com.gmail.snipsrevival.AdminAid;
+import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 
 public class CommandInfo implements CommandExecutor {
 		
 	AdminAid plugin;
 	CommonUtilities common;
+	ConfigValues config;
 	
 	public CommandInfo(AdminAid plugin) {
 		this.plugin = plugin;
@@ -31,7 +33,8 @@ public class CommandInfo implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {	
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
+		config = new ConfigValues(plugin);
 
 		if(!sender.hasPermission("adminaid.info")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
@@ -68,7 +71,7 @@ public class CommandInfo implements CommandExecutor {
 			else {
 				inputList = plugin.getConfig().getStringList("Info." + topic);
 			}
-			double configNumber = plugin.getConfig().getDouble("MessagesPerPage.Info");
+			double configNumber = config.getInfoPerPage();
 			List<String> outputList;
 			int totalPages = common.getTotalPages(inputList, configNumber);
 			int page;

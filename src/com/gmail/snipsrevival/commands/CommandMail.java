@@ -21,6 +21,7 @@ public class CommandMail implements CommandExecutor {
 	
 	AdminAid plugin;
 	CommonUtilities common;
+	ConfigValues config;
 	
 	public CommandMail(AdminAid plugin) {
 		this.plugin = plugin;
@@ -84,6 +85,9 @@ public class CommandMail implements CommandExecutor {
 	}
 	
 	public boolean readMail(CommandSender sender, String[] args) {
+		
+		config = new ConfigValues(plugin);
+		
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + "The console does not have a mailbox");
 			return true;
@@ -114,7 +118,7 @@ public class CommandMail implements CommandExecutor {
 			FileUtilities.saveYamlFile(userFile, file);
 			return true;
 		}
-		double configNumber = plugin.getConfig().getDouble("MessagesPerPage.Mail");
+		double configNumber = config.getMailPerPage();
 		List<String> outputList;
 		int totalPages = common.getTotalPages(mailListRead, configNumber);
 		int page;
