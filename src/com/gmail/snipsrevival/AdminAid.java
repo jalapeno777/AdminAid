@@ -21,7 +21,7 @@ public class AdminAid extends JavaPlugin {
 			
 	@Override
 	public void onEnable() {
-	
+			
 		common = new CommonUtilities(this);
 		lastSender = new HashMap<String, String>();
 		onTime = Bukkit.getPluginManager().getPlugin("OnTime");
