@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
 		
 		if(player.isOp()) {
 			Updater updater = new Updater(plugin);
-			if(!updater.isLatest() && plugin.getConfig().getBoolean("EnableUpdateChecker") == true) {
+			if(!updater.isLatest() && plugin.getConfig().getBoolean("EnableVersionChecker") == true) {
 				plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
 						player.sendMessage(ChatColor.RED + "There is a newer version of AdminAid available");

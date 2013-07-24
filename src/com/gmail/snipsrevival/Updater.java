@@ -55,7 +55,7 @@ public class Updater {
 	}
 	
 	public void performVersionCheck() {
-		if(plugin.getConfig().getBoolean("EnableUpdateChecker") == true) {
+		if(plugin.getConfig().getBoolean("EnableVersionChecker") == true) {
 			if(isLatest()) {
 				plugin.getLogger().warning("There is a newer version of AdminAid available");
 				plugin.getLogger().warning("Download it at " + getDownloadLink());
@@ -94,7 +94,7 @@ public class Updater {
 			}
 		}
 		catch (Exception e) {
-			plugin.getLogger().warning("Something is wrong with the update checker. This can probably be ignored");
+			plugin.getLogger().warning("Something is wrong with the version checker. This can probably be ignored");
 		}
 		return true;
 	}
