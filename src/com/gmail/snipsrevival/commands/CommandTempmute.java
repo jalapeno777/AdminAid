@@ -102,6 +102,7 @@ public class CommandTempmute implements CommandExecutor {
 							
 		if(unmuteTime <= 0) {
 			sender.sendMessage(ChatColor.RED + "That is an invalid time argument");
+			sender.sendMessage(ChatColor.RED + "Time must be a number followed by a w, d, h, m, or s meaning weeks, days, hours, minutes, or seconds respectively");
 			return true;
 		}
 		
