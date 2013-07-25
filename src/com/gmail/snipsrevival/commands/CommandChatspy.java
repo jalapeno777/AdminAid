@@ -2,7 +2,9 @@ package com.gmail.snipsrevival.commands;
 
 import java.io.File;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,24 +26,28 @@ public class CommandChatspy implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "The console can already see all private messages");
-			return true;
-		}
-		if(!sender.hasPermission("adminaid.chatspy")) {
-			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
-			return true;
-		}
+		
 		if(args.length > 1) {
 			sender.sendMessage(ChatColor.RED + "Too many arguments!");
-			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/chatspy [on|off] " + ChatColor.RED + "to enable/disable chat spy for yourself");
+			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/chatspy [player] " + ChatColor.RED + "to toggle chatspy");
 			return true;
 		}
 		
-		File file = new File(plugin.getDataFolder() + "/userdata/" + sender.getName().toLowerCase() + ".yml");
-		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
-		
 		if(args.length == 0) {
+			
+			if(!(sender instanceof Player)) {
+				sender.sendMessage(ChatColor.RED + "The console can already see all private messages");
+				return true;
+			}
+			
+			if(!sender.hasPermission("adminaid.chatspy")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
+				return true;
+			}
+			
+			File file = new File(plugin.getDataFolder() + "/userdata/" + sender.getName().toLowerCase() + ".yml");
+			YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
+			
 			if(userFile.getBoolean("ChatSpy") == false) {
 				userFile.set("ChatSpy", true);
 				sender.sendMessage(ChatColor.GREEN + "ChatSpy enabled. You will now see everyone's private messages");
@@ -56,20 +62,24 @@ public class CommandChatspy implements CommandExecutor {
 			}
 		}
 		if(args.length == 1) {
-			if(args[0].equalsIgnoreCase("on")) {
-				userFile.set("ChatSpy", true);
-				sender.sendMessage(ChatColor.GREEN + "ChatSpy enabled. You will now see everyone's private messages");
-				FileUtilities.saveYamlFile(userFile, file);
+			if(!sender.hasPermission("adminaid.chatspy.others")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permission to toggle chatspy for other players");
 				return true;
 			}
-			else if(args[0].equalsIgnoreCase("off")) {
-				userFile.set("ChatSpy", false);
-				sender.sendMessage(ChatColor.GREEN + "ChatSpy disabled. You will no longer see everyone's private messages");
+			OfflinePlayer targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
+			File file = new File(plugin.getDataFolder() + "/userdata/" + targetPlayer.getName().toLowerCase() + ".yml");
+			YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
+			
+			if(userFile.getBoolean("ChatSpy") == false) {
+				userFile.set("ChatSpy", true);
+				sender.sendMessage(ChatColor.GREEN + "ChatSpy enabled for " + targetPlayer.getName());
 				FileUtilities.saveYamlFile(userFile, file);
 				return true;
 			}
 			else {
-				sender.sendMessage(ChatColor.RED + "Invalid argument. Must be either on or off");
+				userFile.set("ChatSpy", false);
+				sender.sendMessage(ChatColor.GREEN + "ChatSpy disabled for " + targetPlayer.getName());
+				FileUtilities.saveYamlFile(userFile, file);
 				return true;
 			}
 		}
