@@ -22,7 +22,7 @@ public class AdminAid extends JavaPlugin {
 	public Map<String, String> lastSender;
 	public List<String> staffChat;
 	
-	//TODO: ensure version checker is working properly
+	//TODO: improve safe teleport location logic
 	
 	/*
 	 * UPDATE LOG:
