@@ -135,6 +135,9 @@ public class PlayerListener implements Listener {
 		FileUtilities.saveYamlFile(userFile, file);
 		
 		while(plugin.lastSender.values().remove(player.getName())) {}
+		if(plugin.staffChat.contains(player.getName())) {
+			plugin.staffChat.remove(player.getName());
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
