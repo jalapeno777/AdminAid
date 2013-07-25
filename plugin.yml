@@ -1,6 +1,6 @@
 name: AdminAid
 main: com.gmail.snipsrevival.AdminAid
-version: 1.0.0
+version: 1.0.1
 author: SnipsRevival
 description: Make server administration easier for your staff
 website: http://dev.bukkit.org/bukkit-plugins/adminaid/
@@ -50,6 +50,8 @@ commands:
     aliases: tp
   chatspy:
     usage: /chatspy [on|off]
+  staffchat:
+    usage: /staffchat
 permissions:
   adminaid.*:
     description: gives access to all adminaid commands and permissions
@@ -200,4 +202,7 @@ permissions:
     default: op
   adminaid.chatspy:
     description: allows sender to enable or disable chatspy for themselves
+    default: op
+  adminaid.chatspy.others:
+    description: allows sender to enable or disable chatspy for other players
     default: op
