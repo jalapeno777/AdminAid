@@ -56,7 +56,7 @@ public class Updater {
 	
 	public void performVersionCheck() {
 		if(plugin.getConfig().getBoolean("EnableVersionChecker") == true) {
-			if(isLatest()) {
+			if(!isLatest()) {
 				plugin.getLogger().warning("There is a newer version of AdminAid available");
 				plugin.getLogger().warning("Download it at " + getDownloadLink());
 			}
