@@ -14,9 +14,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-	public class CommonUtilities {
+public class CommonUtilities {
 	
-	AdminAid plugin;
+	private AdminAid plugin;
 		
 	public CommonUtilities(AdminAid plugin) {
 		this.plugin = plugin;

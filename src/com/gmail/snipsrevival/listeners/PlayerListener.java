@@ -23,12 +23,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class PlayerListener implements Listener {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public PlayerListener(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 			
 	@EventHandler
@@ -134,9 +134,9 @@ public class PlayerListener implements Listener {
 		userFile.set("ReadMail", mailListRead);
 		FileUtilities.saveYamlFile(userFile, file);
 		
-		while(plugin.lastSender.values().remove(player.getName())) {}
-		if(plugin.staffChat.contains(player.getName())) {
-			plugin.staffChat.remove(player.getName());
+		while(AdminAid.lastSender.values().remove(player.getName())) {}
+		if(AdminAid.staffChat.contains(player.getName())) {
+			AdminAid.staffChat.remove(player.getName());
 		}
 	}
 	

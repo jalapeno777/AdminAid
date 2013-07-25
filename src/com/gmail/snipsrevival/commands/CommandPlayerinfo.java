@@ -21,12 +21,12 @@ import com.gmail.snipsrevival.utilities.OnTimeUtilities;
 
 public class CommandPlayerinfo implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandPlayerinfo(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("playerinfo").setExecutor(this);
+		this.plugin.getCommand("playerinfo").setExecutor(this);
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class CommandPlayerinfo implements CommandExecutor {
 			}
 		}
 		
-		if(plugin.onTime != null) {
+		if(AdminAid.onTime != null) {
 			if(OnTimeUtilities.hasOnTimeRecord(targetPlayer.getName())) {
 				if(config.showTotalPlayTime() == true) {
 					String time = OnTimeUtilities.getTotalPlayTime(targetPlayer.getName());

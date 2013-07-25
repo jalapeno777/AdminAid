@@ -20,12 +20,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandMute implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandMute(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("mute").setExecutor(this);
+		this.plugin.getCommand("mute").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Mute") == true) {
 			PluginCommand mute = plugin.getCommand("mute");
 			CommandUtilities.unregisterBukkitCommand(mute);

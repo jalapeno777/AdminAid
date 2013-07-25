@@ -15,12 +15,10 @@ import com.gmail.snipsrevival.listeners.*;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class AdminAid extends JavaPlugin {
-	
-	CommonUtilities common;
-	
-	public Plugin onTime;
-	public Map<String, String> lastSender;
-	public List<String> staffChat;
+		
+	public static Plugin onTime;
+	public static Map<String, String> lastSender;
+	public static List<String> staffChat;
 	
 	//TODO: improve safe teleport location logic
 	
@@ -31,16 +29,18 @@ public class AdminAid extends JavaPlugin {
 	 * - chatspy can now be toggled for other players
 	 * - new adminaid.chatspy.others permission
 	 * - added staffchat (uses adminaid.staffmember permission) (ticket ID #1)
+	 * - added message in replacement of an empty string if there is no
+	 * ontime data for a specific timeframe
 	 */
 	
 			
 	@Override
 	public void onEnable() {
-			
-		common = new CommonUtilities(this);
+		
 		lastSender = new HashMap<String, String>();
 		staffChat = new ArrayList<String>();
 		onTime = Bukkit.getPluginManager().getPlugin("OnTime");
+			
 		Updater updater = new Updater(this);
 		
 		updater.performVersionCheck();
@@ -51,6 +51,8 @@ public class AdminAid extends JavaPlugin {
 		
 		getConfig().options().copyDefaults(true);
 		saveDefaultConfig();
+		
+		new CommonUtilities(this);
 		
 		new CommandBan(this);
 		new CommandChatspy(this);
@@ -74,5 +76,12 @@ public class AdminAid extends JavaPlugin {
 		
 		new ChatListener(this);
 		new PlayerListener(this);
+	}
+	
+	@Override
+	public void onDisable() {
+		lastSender = null;
+		staffChat = null;
+		onTime = null;
 	}
 }

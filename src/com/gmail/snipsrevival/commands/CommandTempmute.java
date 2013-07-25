@@ -24,12 +24,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandTempmute implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandTempmute(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("tempmute").setExecutor(this);
+		this.plugin.getCommand("tempmute").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Tempmute") == true) {
 			PluginCommand tempmute = plugin.getCommand("tempmute");
 			CommandUtilities.unregisterBukkitCommand(tempmute);

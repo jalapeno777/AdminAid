@@ -17,13 +17,13 @@ import com.gmail.snipsrevival.utilities.CommandUtilities;
 
 public class CommandInfo implements CommandExecutor {
 		
-	AdminAid plugin;
-	CommonUtilities common;
-	ConfigValues config;
+	private AdminAid plugin;
+	private CommonUtilities common;
+	private ConfigValues config;
 	
 	public CommandInfo(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("info").setExecutor(this);
+		this.plugin.getCommand("info").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Info") == true) {
 			PluginCommand info = plugin.getCommand("info");
 			CommandUtilities.unregisterBukkitCommand(info);

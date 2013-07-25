@@ -9,11 +9,11 @@ import com.gmail.snipsrevival.AdminAid;
 
 public class CommandStaffchat implements CommandExecutor {
 	
-	AdminAid plugin;
+	private AdminAid plugin;
 	
 	public CommandStaffchat(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("staffchat").setExecutor(this);
+		this.plugin.getCommand("staffchat").setExecutor(this);
 	}
 
 	@Override
@@ -28,14 +28,14 @@ public class CommandStaffchat implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/staffchat " + ChatColor.RED + "to toggle staff chat");
 		}
 		if(args.length == 0) {
-			if(plugin.staffChat.contains(sender.getName())) {
-				plugin.staffChat.remove(sender.getName());
+			if(AdminAid.staffChat.contains(sender.getName())) {
+				AdminAid.staffChat.remove(sender.getName());
 				sender.sendMessage(ChatColor.GREEN + "You have left the staff chat");
 				sender.sendMessage(ChatColor.GREEN + "All messages send will be visible to everybody");
 				return true;
 			}
 			else {
-				plugin.staffChat.add(sender.getName());
+				AdminAid.staffChat.add(sender.getName());
 				sender.sendMessage(ChatColor.GREEN + "You have joined the staff chat");
 				sender.sendMessage(ChatColor.GREEN + "All messages sent will only be visible to staff members");
 				return true;

@@ -16,12 +16,12 @@ import com.gmail.snipsrevival.utilities.CommandUtilities;
 
 public class CommandTeleport implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandTeleport(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("teleport").setExecutor(this);
+		this.plugin.getCommand("teleport").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Teleport") == true) {
 			PluginCommand teleport = plugin.getCommand("teleport");
 			CommandUtilities.unregisterBukkitCommand(teleport);

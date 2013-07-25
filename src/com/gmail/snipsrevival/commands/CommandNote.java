@@ -19,13 +19,13 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandNote implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
-	ConfigValues config;
+	private AdminAid plugin;
+	private CommonUtilities common;
+	private ConfigValues config;
 	
 	public CommandNote(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("note").setExecutor(this);
+		this.plugin.getCommand("note").setExecutor(this);
 	}
 		
 	@Override

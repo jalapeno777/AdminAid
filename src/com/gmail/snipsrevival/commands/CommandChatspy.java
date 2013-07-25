@@ -16,17 +16,16 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandChatspy implements CommandExecutor {
 	
-	AdminAid plugin;
+	private AdminAid plugin;
 	
 	public CommandChatspy(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("chatspy").setExecutor(this);
+		this.plugin.getCommand("chatspy").setExecutor(this);
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		
 		if(args.length > 1) {
 			sender.sendMessage(ChatColor.RED + "Too many arguments!");
 			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/chatspy [player] " + ChatColor.RED + "to toggle chatspy");
@@ -34,7 +33,6 @@ public class CommandChatspy implements CommandExecutor {
 		}
 		
 		if(args.length == 0) {
-			
 			if(!(sender instanceof Player)) {
 				sender.sendMessage(ChatColor.RED + "The console can already see all private messages");
 				return true;

@@ -9,11 +9,11 @@ import com.gmail.snipsrevival.AdminAid;
 
 public class CommandReloadConfig implements CommandExecutor {
 	
-	AdminAid plugin;
+	private AdminAid plugin;
 	
 	public CommandReloadConfig(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("adminaid").setExecutor(this);
+		this.plugin.getCommand("adminaid").setExecutor(this);
 	}
 
 	@Override

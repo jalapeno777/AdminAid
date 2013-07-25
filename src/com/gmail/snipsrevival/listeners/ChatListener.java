@@ -17,12 +17,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class ChatListener implements Listener {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public ChatListener(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -34,7 +34,7 @@ public class ChatListener implements Listener {
 		File file = new File(plugin.getDataFolder() + "/userdata/" + player.getName().toLowerCase() + ".yml");
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		
-		if(plugin.staffChat.contains(player.getName())) {
+		if(AdminAid.staffChat.contains(player.getName())) {
 			String prefix = ChatColor.GOLD + "[StaffChat] " + ChatColor.WHITE;
 			String message = event.getMessage();
 			Bukkit.getServer().getConsoleSender().sendMessage(prefix + message);

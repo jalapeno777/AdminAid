@@ -15,12 +15,12 @@ import com.gmail.snipsrevival.CommonUtilities;
 
 public class CommandMsg implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandMsg(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("msg").setExecutor(this);
+		this.plugin.getCommand("msg").setExecutor(this);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class CommandMsg implements CommandExecutor {
 		if(args[0].equalsIgnoreCase("CONSOLE")) {
 			String prefix = ChatColor.GOLD + "[" + sender.getName() + " to CONSOLE] " + ChatColor.WHITE;
 			plugin.getServer().getConsoleSender().sendMessage(prefix + message);
-			plugin.lastSender.put("CONSOLE", sender.getName());
+			AdminAid.lastSender.put("CONSOLE", sender.getName());
 			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
 				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
@@ -73,7 +73,7 @@ public class CommandMsg implements CommandExecutor {
 		else {
 			String prefix = ChatColor.GOLD + "[" + sender.getName() + " to you] " + ChatColor.WHITE;
 			targetPlayer.sendMessage(prefix + message);
-			plugin.lastSender.put(targetPlayer.getName(), sender.getName());
+			AdminAid.lastSender.put(targetPlayer.getName(), sender.getName());
 			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
 				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);

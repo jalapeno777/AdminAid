@@ -15,13 +15,13 @@ import com.gmail.snipsrevival.utilities.CommandUtilities;
 
 public class CommandRules implements CommandExecutor {
 		
-	AdminAid plugin;
-	CommonUtilities common;
-	ConfigValues config;
+	private AdminAid plugin;
+	private CommonUtilities common;
+	private ConfigValues config;
 	
 	public CommandRules(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("rules").setExecutor(this);
+		this.plugin.getCommand("rules").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Rules") == true) {
 			PluginCommand rules = plugin.getCommand("rules");
 			CommandUtilities.unregisterBukkitCommand(rules);

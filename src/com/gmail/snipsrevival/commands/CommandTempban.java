@@ -24,12 +24,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandTempban implements CommandExecutor {
 
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandTempban(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("tempban").setExecutor(this);
+		this.plugin.getCommand("tempban").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Tempban") == true) {
 			PluginCommand tempban = plugin.getCommand("tempban");
 			CommandUtilities.unregisterBukkitCommand(tempban);

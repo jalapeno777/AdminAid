@@ -20,12 +20,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandUnban implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandUnban(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("unban").setExecutor(this);
+		this.plugin.getCommand("unban").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Unban") == true) {
 			PluginCommand unban = plugin.getCommand("unban");
 			CommandUtilities.unregisterBukkitCommand(unban);

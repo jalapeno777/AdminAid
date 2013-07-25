@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 
 public class Updater {
 	
-	AdminAid plugin;
+	private AdminAid plugin;
 	
 	public Updater(AdminAid plugin) {
 		this.plugin = plugin;

@@ -11,23 +11,19 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.snipsrevival.AdminAid;
-import com.gmail.snipsrevival.CommonUtilities;
 
 public class CommandReply implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
 	
 	public CommandReply(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("reply").setExecutor(this);
+		this.plugin.getCommand("reply").setExecutor(this);
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		this.common = new CommonUtilities(plugin);
-		
+				
 		if(!sender.hasPermission("adminaid.msg")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
 			return true;
@@ -38,7 +34,7 @@ public class CommandReply implements CommandExecutor {
 			return true;
 		}
 				
-		if(!plugin.lastSender.containsKey(sender.getName())) {
+		if(!AdminAid.lastSender.containsKey(sender.getName())) {
 			sender.sendMessage(ChatColor.RED + "There isn't a player you can reply to");
 			return true;
 		}
@@ -50,11 +46,11 @@ public class CommandReply implements CommandExecutor {
 		}
 		String message = strBuilder.toString().trim();
 		
-		String name = plugin.lastSender.get(sender.getName());
+		String name = AdminAid.lastSender.get(sender.getName());
 		if(name.equalsIgnoreCase("CONSOLE")) {
 			String prefix = ChatColor.GOLD + "[" + sender.getName() + " to CONSOLE] " + ChatColor.WHITE;
 			plugin.getServer().getConsoleSender().sendMessage(prefix + message);
-			plugin.lastSender.put("CONSOLE", sender.getName());
+			AdminAid.lastSender.put("CONSOLE", sender.getName());
 			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
 				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
@@ -69,7 +65,7 @@ public class CommandReply implements CommandExecutor {
 			Player targetPlayer = Bukkit.getServer().getPlayer(name);
 			String prefix = ChatColor.GOLD + "[" + sender.getName() + " to you] " + ChatColor.WHITE;
 			targetPlayer.sendMessage(prefix + message);
-			plugin.lastSender.put(targetPlayer.getName(), sender.getName());
+			AdminAid.lastSender.put(targetPlayer.getName(), sender.getName());
 			for(Player spy : Bukkit.getServer().getOnlinePlayers()) {
 				File file = new File(plugin.getDataFolder() + "/userdata/" + spy.getName().toLowerCase() + ".yml");
 				YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);

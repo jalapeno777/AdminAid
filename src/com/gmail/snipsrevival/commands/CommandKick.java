@@ -20,12 +20,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandKick implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandKick(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("kick").setExecutor(this);
+		this.plugin.getCommand("kick").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Kick") == true) {
 			PluginCommand kick = plugin.getCommand("kick");
 			CommandUtilities.unregisterBukkitCommand(kick);

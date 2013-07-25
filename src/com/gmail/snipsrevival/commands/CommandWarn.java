@@ -20,12 +20,12 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class CommandWarn implements CommandExecutor {
 	
-	AdminAid plugin;
-	CommonUtilities common;
+	private AdminAid plugin;
+	private CommonUtilities common;
 	
 	public CommandWarn(AdminAid plugin) {
 		this.plugin = plugin;
-		plugin.getCommand("warn").setExecutor(this);
+		this.plugin.getCommand("warn").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Warn") == true) {
 			PluginCommand warn = plugin.getCommand("warn");
 			CommandUtilities.unregisterBukkitCommand(warn);
