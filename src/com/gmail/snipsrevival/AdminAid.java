@@ -1,7 +1,9 @@
 package com.gmail.snipsrevival;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -18,12 +20,26 @@ public class AdminAid extends JavaPlugin {
 	
 	public Plugin onTime;
 	public Map<String, String> lastSender;
+	public List<String> staffChat;
+	
+	//TODO: ensure version checker is working properly
+	
+	/*
+	 * UPDATE LOG:
+	 * - teleport is now a disableable command
+	 * - player will now be teleported to nearest non-air block below target location
+	 * - chatspy can now be toggled for other players
+	 * - new adminaid.chatspy.others permission
+	 * - added staffchat (uses adminaid.staffmember permission) (ticket ID #1)
+	 */
+	
 			
 	@Override
 	public void onEnable() {
 			
 		common = new CommonUtilities(this);
 		lastSender = new HashMap<String, String>();
+		staffChat = new ArrayList<String>();
 		onTime = Bukkit.getPluginManager().getPlugin("OnTime");
 		Updater updater = new Updater(this);
 		
@@ -48,6 +64,7 @@ public class AdminAid extends JavaPlugin {
 		new CommandReloadConfig(this);
 		new CommandReply(this);
 		new CommandRules(this);
+		new CommandStaffchat(this);
 		new CommandTeleport(this);
 		new CommandTempban(this);
 		new CommandTempmute(this);
