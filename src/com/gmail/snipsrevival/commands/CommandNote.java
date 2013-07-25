@@ -23,15 +23,15 @@ public class CommandNote implements CommandExecutor {
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandNote(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("note").setExecutor(this);
+	public CommandNote(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("note").setExecutor(this);
 	}
 		
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) { 
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(args.length == 0) {
 			if(sender.hasPermission("adminaid.note.add")) {

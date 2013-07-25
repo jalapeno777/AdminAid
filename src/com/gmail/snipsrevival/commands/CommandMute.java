@@ -23,9 +23,9 @@ public class CommandMute implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandMute(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("mute").setExecutor(this);
+	public CommandMute(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("mute").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Mute") == true) {
 			PluginCommand mute = plugin.getCommand("mute");
 			CommandUtilities.unregisterBukkitCommand(mute);
@@ -35,7 +35,7 @@ public class CommandMute implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(!sender.hasPermission("adminaid.mute")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

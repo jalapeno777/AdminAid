@@ -23,9 +23,9 @@ public class CommandBan implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandBan(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("ban").setExecutor(this);
+	public CommandBan(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("ban").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Ban") == true) {
 			PluginCommand ban = plugin.getCommand("ban");
 			CommandUtilities.unregisterBukkitCommand(ban);
@@ -35,7 +35,7 @@ public class CommandBan implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {	
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 		
 		if(!sender.hasPermission("adminaid.ban")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

@@ -21,9 +21,9 @@ public class CommandInfo implements CommandExecutor {
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandInfo(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("info").setExecutor(this);
+	public CommandInfo(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("info").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Info") == true) {
 			PluginCommand info = plugin.getCommand("info");
 			CommandUtilities.unregisterBukkitCommand(info);

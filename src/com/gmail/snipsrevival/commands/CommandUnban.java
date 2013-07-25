@@ -23,9 +23,9 @@ public class CommandUnban implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandUnban(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("unban").setExecutor(this);
+	public CommandUnban(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("unban").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Unban") == true) {
 			PluginCommand unban = plugin.getCommand("unban");
 			CommandUtilities.unregisterBukkitCommand(unban);
@@ -35,7 +35,7 @@ public class CommandUnban implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 		
 		if(!sender.hasPermission("adminaid.tempban")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

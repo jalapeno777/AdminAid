@@ -43,35 +43,35 @@ public class ConfigValues {
 	
 	private List<String> loginMessages = new ArrayList<String>();
 		
-	public ConfigValues(AdminAid plugin) {
-		this.plugin = plugin;
+	public ConfigValues(AdminAid instance) {
+		plugin = instance;
 		
-		showOnlineStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowOnlineStatus");
-		showLastLogin = this.plugin.getConfig().getBoolean("PlayerInfo.ShowLastLogin");
-		showFirstLogin = this.plugin.getConfig().getBoolean("PlayerInfo.ShowFirstLogin");
-		showIpAddress = this.plugin.getConfig().getBoolean("PlayerInfo.ShowIPAddress");
-		showLocation = this.plugin.getConfig().getBoolean("PlayerInfo.ShowLocation");
-		showBannedStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowBannedStatus");
-		showMutedStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowMutedStatus");
-		showStaffMemberStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowStaffMemberStatus");
-		showChatSpyStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowChatSpyStatus");
-		showBanExemptStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowBanExemptStatus");
-		showMuteExemptStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowMuteExemptStatus");
-		showKickExemptStatus = this.plugin.getConfig().getBoolean("PlayerInfo.ShowKickExemptStatus");
-		showTotalPlayTime = this.plugin.getConfig().getBoolean("PlayerInfo.ShowTotalPlayTime");
-		showMonthlyPlayTime = this.plugin.getConfig().getBoolean("PlayerInfo.ShowMonthlyPlayTime");
-		showWeeklyPlayTime = this.plugin.getConfig().getBoolean("PlayerInfo.ShowWeeklyPlayTime");
-		showDailyPlayTime = this.plugin.getConfig().getBoolean("PlayerInfo.ShowDailyPlayTime");
+		showOnlineStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowOnlineStatus");
+		showLastLogin = plugin.getConfig().getBoolean("PlayerInfo.ShowLastLogin");
+		showFirstLogin = plugin.getConfig().getBoolean("PlayerInfo.ShowFirstLogin");
+		showIpAddress = plugin.getConfig().getBoolean("PlayerInfo.ShowIPAddress");
+		showLocation = plugin.getConfig().getBoolean("PlayerInfo.ShowLocation");
+		showBannedStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowBannedStatus");
+		showMutedStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowMutedStatus");
+		showStaffMemberStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowStaffMemberStatus");
+		showChatSpyStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowChatSpyStatus");
+		showBanExemptStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowBanExemptStatus");
+		showMuteExemptStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowMuteExemptStatus");
+		showKickExemptStatus = plugin.getConfig().getBoolean("PlayerInfo.ShowKickExemptStatus");
+		showTotalPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowTotalPlayTime");
+		showMonthlyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowMonthlyPlayTime");
+		showWeeklyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowWeeklyPlayTime");
+		showDailyPlayTime = plugin.getConfig().getBoolean("PlayerInfo.ShowDailyPlayTime");
 		
-		rulesPerPage = this.plugin.getConfig().getDouble("MessagesPerPage.Rules");
-		infoPerPage = this.plugin.getConfig().getDouble("MessagesPerPage.Info");
-		mailPerPage = this.plugin.getConfig().getDouble("MessagesPerPage.Mail");
-		notesPerPage = this.plugin.getConfig().getDouble("MessagesPerPage.Notes");
+		rulesPerPage = plugin.getConfig().getDouble("MessagesPerPage.Rules");
+		infoPerPage = plugin.getConfig().getDouble("MessagesPerPage.Info");
+		mailPerPage = plugin.getConfig().getDouble("MessagesPerPage.Mail");
+		notesPerPage = plugin.getConfig().getDouble("MessagesPerPage.Notes");
 
 		
-		prefix = this.plugin.getConfig().getString("Prefix");
+		prefix = plugin.getConfig().getString("Prefix");
 		
-		loginMessages = this.plugin.getConfig().getStringList("LoginMessages");
+		loginMessages = plugin.getConfig().getStringList("LoginMessages");
 	}
 	
 	public boolean showOnlineStatus() {

@@ -18,9 +18,9 @@ public class CommandChatspy implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandChatspy(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("chatspy").setExecutor(this);
+	public CommandChatspy(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("chatspy").setExecutor(this);
 	}
 
 	@Override

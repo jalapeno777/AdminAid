@@ -18,8 +18,8 @@ public class CommonUtilities {
 	
 	private AdminAid plugin;
 		
-	public CommonUtilities(AdminAid plugin) {
-		this.plugin = plugin;
+	public CommonUtilities(AdminAid instance) {
+		plugin = instance;
 	}
 	
 	public boolean isPermaBanned(OfflinePlayer player) {

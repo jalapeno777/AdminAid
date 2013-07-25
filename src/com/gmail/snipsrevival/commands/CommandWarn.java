@@ -23,9 +23,9 @@ public class CommandWarn implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandWarn(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("warn").setExecutor(this);
+	public CommandWarn(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("warn").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Warn") == true) {
 			PluginCommand warn = plugin.getCommand("warn");
 			CommandUtilities.unregisterBukkitCommand(warn);
@@ -35,7 +35,7 @@ public class CommandWarn implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(!sender.hasPermission("adminaid.warn")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

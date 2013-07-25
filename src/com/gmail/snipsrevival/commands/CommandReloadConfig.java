@@ -11,9 +11,9 @@ public class CommandReloadConfig implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandReloadConfig(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("adminaid").setExecutor(this);
+	public CommandReloadConfig(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("adminaid").setExecutor(this);
 	}
 
 	@Override

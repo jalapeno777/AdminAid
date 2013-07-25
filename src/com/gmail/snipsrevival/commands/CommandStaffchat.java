@@ -11,9 +11,9 @@ public class CommandStaffchat implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandStaffchat(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("staffchat").setExecutor(this);
+	public CommandStaffchat(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("staffchat").setExecutor(this);
 	}
 
 	@Override

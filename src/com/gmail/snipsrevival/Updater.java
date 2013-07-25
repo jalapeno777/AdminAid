@@ -17,8 +17,8 @@ public class Updater {
 	
 	private AdminAid plugin;
 	
-	public Updater(AdminAid plugin) {
-		this.plugin = plugin;
+	public Updater(AdminAid instance) {
+		plugin = instance;
 	}
 	
 	public void updateConfig() {

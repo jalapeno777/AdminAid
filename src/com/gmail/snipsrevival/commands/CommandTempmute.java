@@ -27,9 +27,9 @@ public class CommandTempmute implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandTempmute(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("tempmute").setExecutor(this);
+	public CommandTempmute(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("tempmute").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Tempmute") == true) {
 			PluginCommand tempmute = plugin.getCommand("tempmute");
 			CommandUtilities.unregisterBukkitCommand(tempmute);
@@ -39,7 +39,7 @@ public class CommandTempmute implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(sender.hasPermission("adminaid.tempmute")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

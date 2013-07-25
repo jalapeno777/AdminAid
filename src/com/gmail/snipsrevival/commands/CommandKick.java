@@ -23,9 +23,9 @@ public class CommandKick implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandKick(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("kick").setExecutor(this);
+	public CommandKick(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("kick").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Kick") == true) {
 			PluginCommand kick = plugin.getCommand("kick");
 			CommandUtilities.unregisterBukkitCommand(kick);
@@ -35,7 +35,7 @@ public class CommandKick implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 		
 		if(!sender.hasPermission("adminaid.kick")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

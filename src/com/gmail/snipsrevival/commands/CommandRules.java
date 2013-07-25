@@ -19,9 +19,9 @@ public class CommandRules implements CommandExecutor {
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandRules(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("rules").setExecutor(this);
+	public CommandRules(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("rules").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Rules") == true) {
 			PluginCommand rules = plugin.getCommand("rules");
 			CommandUtilities.unregisterBukkitCommand(rules);

@@ -24,9 +24,9 @@ public class CommandPlayerinfo implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandPlayerinfo(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("playerinfo").setExecutor(this);
+	public CommandPlayerinfo(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("playerinfo").setExecutor(this);
 	}
 
 	@Override

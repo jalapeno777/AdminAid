@@ -23,9 +23,9 @@ public class CommandUnmute implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandUnmute(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("unmute").setExecutor(this);
+	public CommandUnmute(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("unmute").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Unmute") == true) {
 			PluginCommand unmute = plugin.getCommand("unmute");
 			CommandUtilities.unregisterBukkitCommand(unmute);
@@ -35,7 +35,7 @@ public class CommandUnmute implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(!sender.hasPermission("adminaid.unmute")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

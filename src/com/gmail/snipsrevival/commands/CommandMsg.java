@@ -18,15 +18,15 @@ public class CommandMsg implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandMsg(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("msg").setExecutor(this);
+	public CommandMsg(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("msg").setExecutor(this);
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 	
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 		
 		if(!sender.hasPermission("adminaid.msg")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

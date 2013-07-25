@@ -27,9 +27,9 @@ public class CommandTempban implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandTempban(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("tempban").setExecutor(this);
+	public CommandTempban(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("tempban").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Tempban") == true) {
 			PluginCommand tempban = plugin.getCommand("tempban");
 			CommandUtilities.unregisterBukkitCommand(tempban);
@@ -39,7 +39,7 @@ public class CommandTempban implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {		
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(!sender.hasPermission("adminaid.tempban")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");

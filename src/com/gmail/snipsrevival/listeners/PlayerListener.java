@@ -26,9 +26,9 @@ public class PlayerListener implements Listener {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public PlayerListener(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	public PlayerListener(AdminAid instance) {
+		plugin = instance;
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 			
 	@EventHandler

@@ -19,9 +19,9 @@ public class CommandTeleport implements CommandExecutor {
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandTeleport(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("teleport").setExecutor(this);
+	public CommandTeleport(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("teleport").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Teleport") == true) {
 			PluginCommand teleport = plugin.getCommand("teleport");
 			CommandUtilities.unregisterBukkitCommand(teleport);

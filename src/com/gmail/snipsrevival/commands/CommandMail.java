@@ -23,15 +23,15 @@ public class CommandMail implements CommandExecutor {
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandMail(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("mail").setExecutor(this);
+	public CommandMail(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("mail").setExecutor(this);
 	}
 			
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {	
 		
-		this.common = new CommonUtilities(plugin);
+		common = new CommonUtilities(plugin);
 
 		if(args.length == 0) {
 			if(sender.hasPermission("adminaid.mail.send")) {

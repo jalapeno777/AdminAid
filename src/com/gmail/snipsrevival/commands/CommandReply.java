@@ -16,9 +16,9 @@ public class CommandReply implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandReply(AdminAid plugin) {
-		this.plugin = plugin;
-		this.plugin.getCommand("reply").setExecutor(this);
+	public CommandReply(AdminAid instance) {
+		plugin = instance;
+		plugin.getCommand("reply").setExecutor(this);
 	}
 
 	@Override
