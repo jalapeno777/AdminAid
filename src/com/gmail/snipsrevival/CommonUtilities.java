@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.gmail.snipsrevival.utilities.FileUtilities;
@@ -46,6 +49,37 @@ import com.gmail.snipsrevival.utilities.FileUtilities;
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		if(userFile.getBoolean("TempMuted") == true) return true;
 		else return false;
+	}
+	
+	
+	public Location getSafeLocation(Location loc) {
+		
+		double y = loc.getY();
+	
+		while(y > -1) {
+			
+			if(loc.getBlock().getType() == Material.STATIONARY_LAVA || 
+					loc.getBlock().getType() == Material.LAVA ||
+					loc.getBlock().getRelative(BlockFace.DOWN).getType() == Material.STATIONARY_LAVA ||
+					loc.getBlock().getRelative(BlockFace.DOWN).getType() == Material.LAVA) {
+				return null;
+			}
+			
+			if(loc.getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR) {
+				y--;
+				loc.setY(y);
+				continue;
+			}
+			
+			if(loc.getBlock().getType() == Material.STATIONARY_WATER || 
+					loc.getBlock().getType() == Material.WATER) {
+				y++;
+				loc.setY(y);
+				continue;
+			}
+			return loc;
+		}
+		return null;
 	}
 	
 	/**
