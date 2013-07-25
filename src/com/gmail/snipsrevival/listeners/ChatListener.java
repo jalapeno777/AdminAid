@@ -2,6 +2,7 @@ package com.gmail.snipsrevival.listeners;
 
 import java.io.File;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -32,6 +33,18 @@ public class ChatListener implements Listener {
 		Player player = event.getPlayer();
 		File file = new File(plugin.getDataFolder() + "/userdata/" + player.getName().toLowerCase() + ".yml");
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
+		
+		if(plugin.staffChat.contains(player.getName())) {
+			String prefix = ChatColor.GOLD + "[StaffChat] " + ChatColor.WHITE;
+			String message = event.getMessage();
+			Bukkit.getServer().getConsoleSender().sendMessage(prefix + message);
+			for(Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+				if(onlinePlayer.hasPermission("adminaid.staffmember")) {
+					onlinePlayer.sendMessage(prefix + message);
+				}
+			}
+			event.setCancelled(true);
+		}
 		
 		if(common.isPermaMuted(player)) {
 			event.setCancelled(true);
