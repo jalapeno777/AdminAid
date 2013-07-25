@@ -44,6 +44,10 @@ public class OnTimeUtilities {
 		Pattern pattern = Pattern.compile(", $");
 		Matcher matcher = pattern.matcher(time);
 		time = matcher.replaceAll("");
+		
+		if(time.isEmpty()) {
+			time = "No play time has been accumulated";
+		}
 		return time;
 	}
 	
