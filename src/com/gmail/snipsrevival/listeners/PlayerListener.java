@@ -19,6 +19,7 @@ import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.CommonUtilities;
 import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.Updater;
+import com.gmail.snipsrevival.Updater.VersionCheckException;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
 public class PlayerListener implements Listener {
@@ -45,12 +46,16 @@ public class PlayerListener implements Listener {
 		
 		if(player.isOp()) {
 			Updater updater = new Updater(plugin);
-			if(!updater.isLatest() && plugin.getConfig().getBoolean("EnableVersionChecker") == true) {
-				plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					public void run() {
-						player.sendMessage(ChatColor.RED + "There is a newer version of AdminAid available");
-					}
-				});
+			try {
+				if(!updater.isLatest() && plugin.getConfig().getBoolean("EnableVersionChecker") == true) {
+					plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+						public void run() {
+							player.sendMessage(ChatColor.RED + "There is a newer version of AdminAid available");
+						}
+					});
+				}
+			} 
+			catch (VersionCheckException e) {
 			}
 		}
 		
@@ -72,8 +77,8 @@ public class PlayerListener implements Listener {
 		if(!player.hasPermission("adminaid.staffmember")) userFile.set("StaffMember", false);
 		if(userFile.get("ChatSpy") == null) userFile.set("ChatSpy", false);
 		userFile.set("IPAddress", ipAddress);
-		userFile.set("mail.new", mailListNew);
-		userFile.set("mail.read", mailListRead);
+		userFile.set("NewMail", mailListNew);
+		userFile.set("ReadMail", mailListRead);
 		FileUtilities.saveYamlFile(userFile, file);
 		
 		if(player.hasPermission("adminaid.mail.read")) {
