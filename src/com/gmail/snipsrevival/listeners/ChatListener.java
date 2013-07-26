@@ -35,7 +35,7 @@ public class ChatListener implements Listener {
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		
 		if(AdminAid.staffChat.contains(player.getName())) {
-			String prefix = ChatColor.GOLD + "[StaffChat] " + ChatColor.WHITE;
+			String prefix = ChatColor.GOLD + "[StaffChat] " + player.getName() + ": " + ChatColor.WHITE;
 			String message = event.getMessage();
 			Bukkit.getServer().getConsoleSender().sendMessage(prefix + message);
 			for(Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
