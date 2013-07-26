@@ -22,34 +22,34 @@ import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-public class CommandTempmute implements CommandExecutor {
-	
+public class TempbanCommand implements CommandExecutor {
+
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandTempmute(AdminAid instance) {
+	public TempbanCommand(AdminAid instance) {
 		plugin = instance;
-		plugin.getCommand("tempmute").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableCommand.Tempmute") == true) {
-			PluginCommand tempmute = plugin.getCommand("tempmute");
-			CommandUtilities.unregisterBukkitCommand(tempmute);
+		plugin.getCommand("tempban").setExecutor(this);
+		if(plugin.getConfig().getBoolean("DisableCommand.Tempban") == true) {
+			PluginCommand tempban = plugin.getCommand("tempban");
+			CommandUtilities.unregisterBukkitCommand(tempban);
 		}
 	}
-		
+	
 	@Override
-	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {		
 		
 		common = new CommonUtilities(plugin);
 
-		if(sender.hasPermission("adminaid.tempmute")) {
+		if(!sender.hasPermission("adminaid.tempban")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
 			return true;
 		}
 		if(args.length < 3) {
 			sender.sendMessage(ChatColor.RED + "Too few arguments!");
-			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/tempmute <playername> <time> <reason> " + ChatColor.RED + "to tempmute player");
+			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/tempban <playername> <time> <reason> " + ChatColor.RED + "to tempban player");
 			return true;
-		}	
+		}
 		if(common.nameContainsInvalidCharacter(args[0])) {
 			sender.sendMessage(ChatColor.RED + "That is an invalid playername");
 			return true;
@@ -58,56 +58,51 @@ public class CommandTempmute implements CommandExecutor {
 		final OfflinePlayer targetPlayer;
 		if(Bukkit.getServer().getPlayer(args[0]) != null) targetPlayer = Bukkit.getServer().getPlayer(args[0]);
 		else targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
-						
+							
 		File file = new File(plugin.getDataFolder() + "/userdata/" + targetPlayer.getName().toLowerCase() + ".yml");
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		List<String> noteList = userFile.getStringList("Notes");						
 		
-		if(userFile.getBoolean("MuteExempt") == true) {
-			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is exempt from being muted");
+		if(userFile.getBoolean("BanExempt") == true) {
+			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is exempt from being banned");
 			return true;
 		}
-		if(common.isPermaMuted(targetPlayer)) {
-			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is already permanently muted");
+		if(common.isPermaBanned(targetPlayer)) {
+			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is already permanently banned");
 			return true;
 		}
-		double unmuteTime = 0;
-
+		double unbanTime = 0;
 		Pattern pattern = Pattern.compile("(\\d+\\.?\\d*)([wdhms]{1})");
 		Matcher matcher = pattern.matcher(args[1]);
-
 		if(matcher.matches()) {
-			
 			int pos = matcher.start(2);
 			String number = args[1].substring(0, pos);
 			String letter = args[1].substring(pos);
 			double i = Double.parseDouble(number);
-			
 			if(letter.equalsIgnoreCase("w")) {
-				unmuteTime = i*604800;
+				unbanTime = i*604800;
 			}
 			if(letter.equalsIgnoreCase("d")) {
-				unmuteTime = i*86400;
+				unbanTime = i*86400;
 			}
 			if(letter.equalsIgnoreCase("h")) {
-				unmuteTime = i*3600;
+				unbanTime = i*3600;
 			}
 			if(letter.equalsIgnoreCase("m")) {
-				unmuteTime = i*60;
+				unbanTime = i*60;
 			}
 			if(letter.equalsIgnoreCase("s")) {
-				unmuteTime = i;
-			}				
-		}
-							
-		if(unmuteTime <= 0) {
+				unbanTime = i;
+			}		
+		}							
+		if(unbanTime <= 0) {
 			sender.sendMessage(ChatColor.RED + "That is an invalid time argument");
 			sender.sendMessage(ChatColor.RED + "Time must be a number followed by a w, d, h, m, or s meaning weeks, days, hours, minutes, or seconds respectively");
 			return true;
 		}
 		
-		Date unmuteDateUnformatted = new Date((long) (System.currentTimeMillis() + unmuteTime*1000));
-		String unmuteDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a z").format(unmuteDateUnformatted);
+		Date unbanDateUnformatted = new Date((long) (System.currentTimeMillis() + unbanTime*1000));
+		String unbanDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a z").format(unbanDateUnformatted);
 		
 		StringBuilder strBuilder = new StringBuilder();			
 		String prefix = new ConfigValues(plugin).getPrefix(sender);
@@ -118,14 +113,17 @@ public class CommandTempmute implements CommandExecutor {
 		String message = strBuilder.toString().trim();
 		
 		FileUtilities.createNewFile(file);
-		userFile.set("TempMuted", true);
-		userFile.set("TempMuteReason", "tempmuted until " + unmuteDate + " for this reason: " + message);
-		userFile.set("TempMuteEnd", (System.currentTimeMillis()/1000) + unmuteTime);
-		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been tempmuted until " + unmuteDate + " " + message);
+		userFile.set("TempBanned", true);
+		userFile.set("TempBanReason", "tempbanned until " + unbanDate + " for this reason: " + message);
+		userFile.set("TempBanEnd", (System.currentTimeMillis()/1000) + unbanTime);
+		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been tempbanned until " + unbanDate + " for this reason: " + message);
+		if(targetPlayer.isOnline()) {
+			Bukkit.getServer().getPlayer(args[0]).kickPlayer("You are tempbanned until " + unbanDate + " for this reason: " + message);
+		}
 		
-		if(plugin.getConfig().getBoolean("AutoRecordNotes.Tempmutes") == true) {
-			noteList.add(prefix + "has been tempmuted until " + unmuteDate + " for this reason: " + message);
-			common.addStringStaffList(prefix + targetPlayer.getName() + " has been tempmuted until " + unmuteDate + " for this reason: " + message);
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Tempbans") == true) {
+			noteList.add(prefix + "has been tempbanned until " + unbanDate + " for this reason: " + message);
+			common.addStringStaffList(prefix + targetPlayer.getName() + " has been tempbanned until " + unbanDate + " for this reason: " + message);
 			userFile.set("Notes", noteList);
 		}
 		FileUtilities.saveYamlFile(userFile, file);

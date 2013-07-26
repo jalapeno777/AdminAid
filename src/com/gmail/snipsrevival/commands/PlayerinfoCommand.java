@@ -19,12 +19,12 @@ import com.gmail.snipsrevival.CommonUtilities;
 import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.OnTimeUtilities;
 
-public class CommandPlayerinfo implements CommandExecutor {
+public class PlayerinfoCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandPlayerinfo(AdminAid instance) {
+	public PlayerinfoCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("playerinfo").setExecutor(this);
 	}

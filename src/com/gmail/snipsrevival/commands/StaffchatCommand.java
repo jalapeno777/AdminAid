@@ -7,11 +7,11 @@ import org.bukkit.command.CommandSender;
 
 import com.gmail.snipsrevival.AdminAid;
 
-public class CommandStaffchat implements CommandExecutor {
+public class StaffchatCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandStaffchat(AdminAid instance) {
+	public StaffchatCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("staffchat").setExecutor(this);
 	}

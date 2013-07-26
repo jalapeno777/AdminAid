@@ -13,13 +13,13 @@ import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 
-public class CommandRules implements CommandExecutor {
+public class RulesCommand implements CommandExecutor {
 		
 	private AdminAid plugin;
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandRules(AdminAid instance) {
+	public RulesCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("rules").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Rules") == true) {

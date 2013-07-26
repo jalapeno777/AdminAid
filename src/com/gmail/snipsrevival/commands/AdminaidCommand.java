@@ -7,11 +7,11 @@ import org.bukkit.command.CommandSender;
 
 import com.gmail.snipsrevival.AdminAid;
 
-public class CommandReloadConfig implements CommandExecutor {
+public class AdminaidCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandReloadConfig(AdminAid instance) {
+	public AdminaidCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("adminaid").setExecutor(this);
 	}

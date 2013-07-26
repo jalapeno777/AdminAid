@@ -14,11 +14,11 @@ import org.bukkit.entity.Player;
 import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-public class CommandChatspy implements CommandExecutor {
+public class ChatspyCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	
-	public CommandChatspy(AdminAid instance) {
+	public ChatspyCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("chatspy").setExecutor(this);
 	}

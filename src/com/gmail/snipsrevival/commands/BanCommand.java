@@ -18,12 +18,12 @@ import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-public class CommandBan implements CommandExecutor {
+public class BanCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandBan(AdminAid instance) {
+	public BanCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("ban").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Ban") == true) {

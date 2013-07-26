@@ -12,38 +12,38 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.CommonUtilities;
+import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-public class CommandWarn implements CommandExecutor {
+public class UnbanCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandWarn(AdminAid instance) {
+	public UnbanCommand(AdminAid instance) {
 		plugin = instance;
-		plugin.getCommand("warn").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableCommand.Warn") == true) {
-			PluginCommand warn = plugin.getCommand("warn");
-			CommandUtilities.unregisterBukkitCommand(warn);
+		plugin.getCommand("unban").setExecutor(this);
+		if(plugin.getConfig().getBoolean("DisableCommand.Unban") == true) {
+			PluginCommand unban = plugin.getCommand("unban");
+			CommandUtilities.unregisterBukkitCommand(unban);
 		}
 	}
-	
+		
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		
 		common = new CommonUtilities(plugin);
-
-		if(!sender.hasPermission("adminaid.warn")) {
+		
+		if(!sender.hasPermission("adminaid.tempban")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
 			return true;
 		}
 		if(args.length < 2) {
 			sender.sendMessage(ChatColor.RED + "Too few arguments!");
-			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/warn <playername> <reason> " + ChatColor.RED + "to warn player");
+			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/unban <playername> <reason> " + ChatColor.RED + "to tempban player");
 			return true;
 		}
 		if(common.nameContainsInvalidCharacter(args[0])) {
@@ -51,14 +51,18 @@ public class CommandWarn implements CommandExecutor {
 			return true;
 		}
 		
-		final OfflinePlayer targetPlayer;
-		if(Bukkit.getServer().getPlayer(args[0]) != null) targetPlayer = Bukkit.getServer().getPlayer(args[0]);
-		else targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
+		final OfflinePlayer targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
+		
+		if(!common.isPermaBanned(targetPlayer) && !common.isTempBanned(targetPlayer)) {
+			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is not banned");
+			return true;
+		}
 		
 		File file = new File(plugin.getDataFolder() + "/userdata/" + targetPlayer.getName().toLowerCase() + ".yml");
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		List<String> noteList = userFile.getStringList("Notes");
-		List<String> mailListNew = userFile.getStringList("NewMail");
+		
+		FileUtilities.createNewFile(file);
 		
 		StringBuilder strBuilder = new StringBuilder();			
 		String prefix = new ConfigValues(plugin).getPrefix(sender);
@@ -67,19 +71,21 @@ public class CommandWarn implements CommandExecutor {
 			strBuilder.append(args[i] + " ");
 		}
 		String message = strBuilder.toString().trim();
-		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been warned for this reason: " + message);
-		FileUtilities.createNewFile(file);
+								
+		targetPlayer.setBanned(false);
+		userFile.set("PermaBanned", null);
+		userFile.set("PermaBanReason", null);
+		userFile.set("TempBanned", null);
+		userFile.set("TempBanReason", null);
+		userFile.set("TempBanEnd", null);
+
+		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been unbanned for this reason: " + message);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordNotes.Warns") == true) {
-			noteList.add(prefix + "has been warned for this reason: " + message);
-			common.addStringStaffList(prefix + targetPlayer.getName() + " has been warned for this reason: " + message);
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Unbans") == true) {
+			noteList.add(prefix + "was unbanned " + message);
+			common.addStringStaffList(prefix + targetPlayer.getName() + " has been unbanned for this reason: " + message);
 			userFile.set("Notes", noteList);
 		}
-		if(targetPlayer.isOnline()) {
-			Bukkit.getServer().getPlayer(args[0]).sendMessage(ChatColor.RED + "You have been warned for this reason: " + message);
-		}
-		mailListNew.add(prefix + ChatColor.RED + "You have been warned for this reason: " + message);
-		userFile.set("NewMail", mailListNew);
 		FileUtilities.saveYamlFile(userFile, file);
 		return true;
 	}

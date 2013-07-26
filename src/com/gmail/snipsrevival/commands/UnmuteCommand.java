@@ -18,17 +18,17 @@ import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-public class CommandMute implements CommandExecutor {
+public class UnmuteCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandMute(AdminAid instance) {
+	public UnmuteCommand(AdminAid instance) {
 		plugin = instance;
-		plugin.getCommand("mute").setExecutor(this);
-		if(plugin.getConfig().getBoolean("DisableCommand.Mute") == true) {
-			PluginCommand mute = plugin.getCommand("mute");
-			CommandUtilities.unregisterBukkitCommand(mute);
+		plugin.getCommand("unmute").setExecutor(this);
+		if(plugin.getConfig().getBoolean("DisableCommand.Unmute") == true) {
+			PluginCommand unmute = plugin.getCommand("unmute");
+			CommandUtilities.unregisterBukkitCommand(unmute);
 		}
 	}
 		
@@ -37,13 +37,13 @@ public class CommandMute implements CommandExecutor {
 		
 		common = new CommonUtilities(plugin);
 
-		if(!sender.hasPermission("adminaid.mute")) {
+		if(!sender.hasPermission("adminaid.unmute")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
 			return true;
 		}
 		if(args.length < 2) {
 			sender.sendMessage(ChatColor.RED + "Too few arguments!");
-			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/mute <playername> <reason> " + ChatColor.RED + "to mute player");
+			sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/unmute <playername> <reason> " + ChatColor.RED + "to unmute player");
 			return true;
 		}
 		if(common.nameContainsInvalidCharacter(args[0])) {
@@ -55,37 +55,34 @@ public class CommandMute implements CommandExecutor {
 		if(Bukkit.getServer().getPlayer(args[0]) != null) targetPlayer = Bukkit.getServer().getPlayer(args[0]);
 		else targetPlayer = Bukkit.getServer().getOfflinePlayer(args[0]);
 		
+		if(!common.isPermaMuted(targetPlayer) && !common.isTempMuted(targetPlayer)) {
+			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is not muted");
+			return true;
+		}
+								
 		File file = new File(plugin.getDataFolder() + "/userdata/" + targetPlayer.getName().toLowerCase() + ".yml");
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
 		List<String> noteList = userFile.getStringList("Notes");
 		
-		if(userFile.getBoolean("MuteExempt") == true) {
-			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is exempt from being muted");
-			return true;
-		}
-
-		if(common.isPermaMuted(targetPlayer)) {
-			sender.sendMessage(ChatColor.RED + targetPlayer.getName() + " is already permanently muted");
-			return true;
-		}
-		
-		FileUtilities.createNewFile(file);
-		userFile.set("PermaMuted", true);
+		userFile.set("PermaMuted", null);
+		userFile.set("PermaMuteReason", null);
+		userFile.set("TempMuted", null);
+		userFile.set("TempMuteReason", null);
+		userFile.set("TempMuteEnd", null);
 		
 		StringBuilder strBuilder = new StringBuilder();			
 		String prefix = new ConfigValues(plugin).getPrefix(sender);
 		
-		for(int arg = 1; arg < args.length; arg = arg+1) {
-			strBuilder.append(args[arg] + " ");
+		for(int i = 1; i < args.length; i++) {
+			strBuilder.append(args[i] + " ");
 		}
 		String message = strBuilder.toString().trim();
 		
-		userFile.set("PermaMuteReason", "muted for this reason: " + message);
-		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been muted for this reason: " + message);
+		sender.sendMessage(ChatColor.GREEN + targetPlayer.getName() + " has been unmuted for this reason: " + message);
 		
-		if(plugin.getConfig().getBoolean("AutoRecordNotes.Mutes") == true) {
-			noteList.add(prefix + "has been muted for this reason: " + message);
-			common.addStringStaffList(prefix + targetPlayer.getName() + " has been muted for this reason: " + message);
+		if(plugin.getConfig().getBoolean("AutoRecordNotes.Unmutes") == true) {
+			noteList.add(prefix + "has been unmuted for this reason: " + message);
+			common.addStringStaffList(prefix + targetPlayer.getName() + " has been unmuted for this reason: " + message);
 			userFile.set("Notes", noteList);
 		}
 		FileUtilities.saveYamlFile(userFile, file);

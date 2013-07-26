@@ -15,13 +15,13 @@ import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 
-public class CommandInfo implements CommandExecutor {
+public class InfoCommand implements CommandExecutor {
 		
 	private AdminAid plugin;
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandInfo(AdminAid instance) {
+	public InfoCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("info").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Info") == true) {

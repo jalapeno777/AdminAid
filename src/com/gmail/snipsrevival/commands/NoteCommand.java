@@ -17,13 +17,13 @@ import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.ConfigValues;
 import com.gmail.snipsrevival.utilities.FileUtilities;
 
-public class CommandNote implements CommandExecutor {
+public class NoteCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	private CommonUtilities common;
 	private ConfigValues config;
 	
-	public CommandNote(AdminAid instance) {
+	public NoteCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("note").setExecutor(this);
 	}

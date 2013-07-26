@@ -12,14 +12,15 @@ import org.bukkit.entity.Player;
 
 import com.gmail.snipsrevival.AdminAid;
 import com.gmail.snipsrevival.CommonUtilities;
+import com.gmail.snipsrevival.CommonUtilities.LavaFilledLocationException;
 import com.gmail.snipsrevival.utilities.CommandUtilities;
 
-public class CommandTeleport implements CommandExecutor {
+public class TeleportCommand implements CommandExecutor {
 	
 	private AdminAid plugin;
 	private CommonUtilities common;
 	
-	public CommandTeleport(AdminAid instance) {
+	public TeleportCommand(AdminAid instance) {
 		plugin = instance;
 		plugin.getCommand("teleport").setExecutor(this);
 		if(plugin.getConfig().getBoolean("DisableCommand.Teleport") == true) {
@@ -37,8 +38,8 @@ public class CommandTeleport implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Only players can teleport");
 			return true;
 		}
-		if(!sender.hasPermission("adminaid.teleport") ||
-				!sender.hasPermission("adminaid.teleport.others") ||
+		if(!sender.hasPermission("adminaid.teleport") &&
+				!sender.hasPermission("adminaid.teleport.others") &&
 				!sender.hasPermission("adminaid.teleport.coordinates")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
 			return true;
@@ -52,7 +53,7 @@ public class CommandTeleport implements CommandExecutor {
 				sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/tp  <player1> <player2> " + ChatColor.RED + "to teleport player1 to player2");
 			}
 			if(sender.hasPermission("adminaid.teleport.coordinates")) {
-				sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/tp  <x> <y> <z> [world]" + ChatColor.RED + "to teleport yourself to coordinates");
+				sender.sendMessage(ChatColor.RED + "Use " + ChatColor.WHITE + "/tp  <x> <y> <z> [world] " + ChatColor.RED + "to teleport yourself to coordinates");
 			}
 			return true;		
 			}
@@ -86,11 +87,14 @@ public class CommandTeleport implements CommandExecutor {
 			}
 			
 			Location loc = targetPlayer.getLocation();
-			if(common.getSafeLocation(loc) == null) {
-				sender.sendMessage(ChatColor.RED + "No safe location was found. Teleport aborted");
+			try {
+				player.teleport(common.getSafeLocation(loc));
+			}
+			catch (LavaFilledLocationException e) {
+				sender.sendMessage(ChatColor.RED + "Risk of burning to death at target location. Teleport aborted");
 				return true;
 			}
-			player.teleport(common.getSafeLocation(loc));
+
 			sender.sendMessage(ChatColor.GREEN + "You were teleported to " + targetPlayer.getName());
 			return true;
 		}
@@ -117,11 +121,13 @@ public class CommandTeleport implements CommandExecutor {
 			}
 			
 			Location loc = targetPlayer2.getLocation();
-			if(common.getSafeLocation(loc) == null) {
-				sender.sendMessage(ChatColor.RED + "No safe location was found. Teleport aborted");
+			try {
+				targetPlayer1.teleport(common.getSafeLocation(loc));
+			}
+			catch (LavaFilledLocationException e) {
+				sender.sendMessage(ChatColor.RED + "Risk of burning to death at target location. Teleport aborted");
 				return true;
 			}
-			targetPlayer1.teleport(common.getSafeLocation(loc));
 			
 			sender.sendMessage(ChatColor.GREEN + targetPlayer1.getName() + "was teleported to " + targetPlayer2.getName());
 			targetPlayer1.sendMessage(ChatColor.GREEN + "You were teleported to " + targetPlayer2.getName());
@@ -141,11 +147,13 @@ public class CommandTeleport implements CommandExecutor {
 			double z = Integer.parseInt(args[2]);
 			World world = player.getWorld();
 			Location loc = new Location(world, x, y, z);
-			if(common.getSafeLocation(loc) == null) {
-				sender.sendMessage(ChatColor.RED + "No safe location was found. Teleport aborted");
+			try {
+				player.teleport(common.getSafeLocation(loc));
+			}
+			catch (LavaFilledLocationException e) {
+				sender.sendMessage(ChatColor.RED + "Risk of burning to death at target location. Teleport aborted");
 				return true;
 			}
-			player.teleport(common.getSafeLocation(loc));
 			sender.sendMessage(ChatColor.GREEN + "You were teleported to a set of coordinates in world " + world.getName());
 			return true;
 		}
@@ -167,11 +175,14 @@ public class CommandTeleport implements CommandExecutor {
 			double y = Integer.parseInt(args[1]);
 			double z = Integer.parseInt(args[2]);
 			Location loc = new Location(world, x, y, z);
-			if(common.getSafeLocation(loc) == null) {
-				sender.sendMessage(ChatColor.RED + "No safe location was found. Teleport aborted");
+			try {
+				player.teleport(common.getSafeLocation(loc));
+			}
+			catch (LavaFilledLocationException e) {
+				sender.sendMessage(ChatColor.RED + "Risk of burning to death at target location. Teleport aborted");
 				return true;
 			}
-			player.teleport(common.getSafeLocation(loc));
+
 			sender.sendMessage(ChatColor.GREEN + "You were teleported to a set of coordinates in world " + world.getName());
 			return true;
 		}
