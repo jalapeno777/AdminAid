@@ -112,8 +112,8 @@ public class PlayerListener implements Listener {
 		Player player = event.getPlayer();
 		File file = new File(plugin.getDataFolder() + "/userdata/" + player.getName().toLowerCase() + ".yml");
 		YamlConfiguration userFile = YamlConfiguration.loadConfiguration(file);
-		List<String> mailListNew = userFile.getStringList("mail.new");
-		List<String> mailListRead = userFile.getStringList("mail.read");
+		List<String> mailListNew = userFile.getStringList("NewMail");
+		List<String> mailListRead = userFile.getStringList("ReadMail");
 		String ipAddress = player.getAddress().getHostName();
 		Location loc = player.getLocation();
 		int xCoord = loc.getBlockX();
