@@ -36,9 +36,9 @@ public class OnTimeUtilities {
 		if(minutes == 0) time = time.replace("0 minutes, ", "");
 		if(sec == 0) time = time.replace("0 seconds", "");
 		
-		if(days == 1) time = time.replace("1 days, ", "1 day,");
-		if(hours == 1) time = time.replace("1 hours, ", "1 hour,");
-		if(minutes == 1) time = time.replace("1 minutes, ", "1 minute,");
+		if(days == 1) time = time.replace("1 days, ", "1 day, ");
+		if(hours == 1) time = time.replace("1 hours, ", "1 hour, ");
+		if(minutes == 1) time = time.replace("1 minutes, ", "1 minute, ");
 		if(sec == 1) time = time.replace("1 seconds", "1 second");
 		
 		Pattern pattern = Pattern.compile(", $");
@@ -74,5 +74,6 @@ public class OnTimeUtilities {
 		double seconds = DataIO.getPlayerTimeData(targetPlayer, OnTimeAPI.data.TODAYPLAY)/1000;
 		return splitSeconds(seconds);
 	}
+	
 
 }
