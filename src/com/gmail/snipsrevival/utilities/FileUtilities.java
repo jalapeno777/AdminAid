@@ -7,12 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class FileUtilities {
 	
-	/**
-	 * Creates a new file if it does not already exist
-	 * 
-	 * @param file - the location of the file to create
-	 */
-	
 	public static void createNewFile(File file) {
 		if(!file.exists()) {
 			try {
@@ -24,12 +18,6 @@ public class FileUtilities {
 		}
 	}
 	
-	/**
-	 * Creates a new directory if it does not already exist
-	 * 
-	 * @param dir - the directory to create
-	 */
-	
 	public static void createNewDir(File dir) {
 		if(!dir.exists()) {
 			try {
@@ -40,13 +28,6 @@ public class FileUtilities {
 			}
 		}
 	}
-	
-	/**
-	 * saves a YamlConfiguration
-	 * 
-	 * @param yamlConfig - the configuration to save
-	 * @param file - the location of the file to save
-	 */
 	
 	public static void saveYamlFile(YamlConfiguration yamlConfig, File file) {
 		try {
