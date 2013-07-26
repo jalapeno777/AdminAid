@@ -21,6 +21,9 @@ public class Updater {
 		plugin = instance;
 	}
 	
+	@SuppressWarnings("serial")
+	public class VersionCheckException extends Exception {}
+	
 	public void updateConfig() {
 		
 		String currentVersion = plugin.getDescription().getVersion();
@@ -56,18 +59,23 @@ public class Updater {
 	
 	public void performVersionCheck() {
 		if(plugin.getConfig().getBoolean("EnableVersionChecker") == true) {
-			if(!isLatest()) {
-				plugin.getLogger().warning("There is a newer version of AdminAid available");
-				plugin.getLogger().warning("Download it at " + getDownloadLink());
+			plugin.getLogger().info("Checking for newer versions...");
+			try {
+				if(!isLatest()) {
+					plugin.getLogger().warning("There is a newer version of AdminAid available");
+					plugin.getLogger().warning("Download it at " + getDownloadLink());
+				}
+				else {
+					plugin.getLogger().info("You have the latest version of AdminAid!");
+				}
 			}
-			else {
-				plugin.getLogger().info("You have the latest version of AdminAid!");
+			catch (VersionCheckException e) {
+				plugin.getLogger().warning("Something is wrong with the version checker. This can probably be ignored");
 			}
 		}
 	}
 	
-	public boolean isLatest() {
-		plugin.getLogger().info("Checking for newer versions...");
+	public boolean isLatest() throws VersionCheckException {
 		try {
 			InputStream input = new URL("http://dev.bukkit.org/bukkit-plugins/adminaid/files.rss").openConnection().getInputStream();
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
@@ -94,9 +102,8 @@ public class Updater {
 			}
 		}
 		catch (Exception e) {
-			plugin.getLogger().warning("Something is wrong with the version checker. This can probably be ignored");
+			throw new VersionCheckException();
 		}
-		return true;
 	}
 	
 	public String getDownloadLink() {
