@@ -42,7 +42,7 @@ commands:
   reply:
     usage: /reply <message>
     aliases: r
-  playerinfo:
+  pinfo:
     usage: /pinfo <player>
   chatspy:
     usage: /chatspy [on|off]
