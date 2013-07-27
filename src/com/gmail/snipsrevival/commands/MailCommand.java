@@ -248,8 +248,8 @@ public class MailCommand implements CommandExecutor {
 		if(Bukkit.getServer().getPlayer(args[1]) != null) targetPlayer = Bukkit.getServer().getPlayer(args[1]);
 		else targetPlayer = Bukkit.getServer().getOfflinePlayer(args[1]);
 	
-		for(int arg = 2; arg < args.length; arg = arg+1) {
-			strBuilder.append(args[arg] + " ");
+		for(int i = 2; i < args.length; i++) {
+			strBuilder.append(args[i] + " ");
 		}
 		String message = strBuilder.toString().trim();
 		
@@ -281,8 +281,8 @@ public class MailCommand implements CommandExecutor {
 		File dir = new File(plugin.getDataFolder() + "/userdata/");
 		File[] children = dir.listFiles();
 		
-		for(int arg = 1; arg < args.length; arg = arg+1) {
-			strBuilder.append(args[arg] + " ");
+		for(int i = 1; i < args.length; i++) {
+			strBuilder.append(args[i] + " ");
 		}
 		String message = strBuilder.toString().trim();	
 		
@@ -311,8 +311,8 @@ public class MailCommand implements CommandExecutor {
 		File dir = new File(plugin.getDataFolder() + "/userdata/");
 		File[] children = dir.listFiles();
 		
-		for(int arg = 1; arg < args.length; arg = arg+1) {
-			strBuilder.append(args[arg] + " ");
+		for(int i = 1; i < args.length; i++) {
+			strBuilder.append(args[i] + " ");
 		}
 		String message = strBuilder.toString().trim();
 		

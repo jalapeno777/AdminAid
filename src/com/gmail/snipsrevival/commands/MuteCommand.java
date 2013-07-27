@@ -75,8 +75,8 @@ public class MuteCommand implements CommandExecutor {
 		StringBuilder strBuilder = new StringBuilder();			
 		String prefix = new ConfigValues(plugin).getPrefix(sender);
 		
-		for(int arg = 1; arg < args.length; arg = arg+1) {
-			strBuilder.append(args[arg] + " ");
+		for(int i = 1; i < args.length; i++) {
+			strBuilder.append(args[i] + " ");
 		}
 		String message = strBuilder.toString().trim();
 		
