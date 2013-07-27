@@ -43,11 +43,7 @@ commands:
     usage: /reply <message>
     aliases: r
   playerinfo:
-    usage: /playerinfo <player>
-    aliases: pinfo
-  teleport:
-    usage: /tp
-    aliases: tp
+    usage: /pinfo <player>
   chatspy:
     usage: /chatspy [on|off]
   staffchat:
