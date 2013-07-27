@@ -41,7 +41,7 @@ public class TempmuteCommand implements CommandExecutor {
 		
 		common = new CommonUtilities(plugin);
 
-		if(sender.hasPermission("adminaid.tempmute")) {
+		if(!sender.hasPermission("adminaid.tempmute")) {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to use that command");
 			return true;
 		}
